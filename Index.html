@@ -3,28 +3,33 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>JALSA REFRIGERATOR & ELECTRONICS | Premium Home Appliances</title>
+    <meta name="description" content="JALSA ELECTRONICS - Premium Home Appliances in Mumbai">
+    <title>JALSA ELECTRONICS | Premium Home Appliances</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;900&display=swap" rel="stylesheet">
     <style>
         body { font-family: 'Poppins', sans-serif; background-color: #f8fafc; }
         .fade-in { opacity: 0; transform: translateY(20px); transition: all 0.6s ease-out; }
         .fade-in.appear { opacity: 1; transform: translateY(0); }
-        .floating { animation: floating 3s ease-in-out infinite; }
-        .floating {border-radius: 10px;}
+        .floating { animation: floating 3s ease-in-out infinite; border-radius: 10px; }
         @keyframes floating {
-            0% { transform: translateY(0px); }
+            0%, 100% { transform: translateY(0px); }
             50% { transform: translateY(-15px); }
-            100% { transform: translateY(0px); }
         }
-        .nav-link::after {
-            content: '';
-            display: block;
-            width: 0;
-            height: 2px;
-            background: #ef4444;
-            transition: width .3s;
+
+        /* Indian Gradient for Typing Text */
+        .premium-gradient {
+            background-color: #ffffff;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
+
+        /* Prevent Layout Jump */
+        .typing-box { min-height: 80px; display: flex; align-items: center; }
+        .cursor { width: 3px; height: 1.2em; background-color: white; margin-left: 5px; animation: blink 0.7s infinite; }
+        @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
+
+        .nav-link::after { content: ''; display: block; width: 0; height: 2px; background: #ef4444; transition: width .3s; }
         .nav-link:hover::after { width: 100%; }
     </style>
 </head>
@@ -38,243 +43,141 @@
             <div class="hidden md:flex space-x-8 font-medium text-gray-600">
                 <a href="#" class="nav-link">Home</a>
                 <a href="#shop" class="nav-link">Shop</a>
-                <a href="#categories" class="nav-link">Categories</a>
                 <a href="#offers" class="nav-link">Offers</a>
-                <a href="#contact" class="nav-link">Contact</a>
+                <a href="Contact.html" class="nav-link">Contact</a>
             </div>
-            <div class="flex items-center space-x-5 text-gray-700">
-                <button class="hover:text-red-600 transition-colors"><svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" /></svg></button>
-                <button class="hover:text-red-600 transition-colors relative">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" /></svg>
-                    <span class="absolute -top-2 -right-2 bg-red-600 text-white text-xs rounded-full h-4 w-4 flex items-center justify-center">0</span>
-                </button>
-                <button class="bg-gray-800 text-white px-5 py-2 rounded-full text-sm hover:bg-red-600 transition-all active:scale-95">Login</button>
-            </div>
+            <button class="bg-gray-800 text-white px-5 py-2 rounded-full text-sm hover:bg-red-600 transition-all">Login</button>
         </div>
     </nav>
 
-    <section class="container mx-auto px-6 py-12">
+    <section id="home" class="container mx-auto px-6 py-12">
         <div class="bg-gray-100 rounded-3xl overflow-hidden flex flex-col md:flex-row items-center p-8 md:p-16 min-h-[500px] fade-in">
             <div class="md:w-1/2 space-y-6">
                 <span class="text-red-600 font-semibold tracking-widest uppercase text-sm">Premium Electronics</span>
                 <h1 class="text-5xl md:text-7xl font-bold text-gray-900 leading-tight">Smart Home <br> Appliances</h1>
-                <p class="text-gray-500 text-lg max-w-md">Upgrade your lifestyle with the latest Double Door Fridges, AI Washing Machines, and Inverter ACs.</p>
-                <button class="bg-red-600 text-white px-10 py-4 rounded-full font-bold shadow-lg shadow-red-200 hover:scale-105 active:scale-95 transition-all">Shop Now</button>
+                <p class="text-gray-500 text-lg">Upgrade your lifestyle with Jalsa.</p>
+                <button class="bg-red-600 text-white px-10 py-4 rounded-full font-bold shadow-lg hover:scale-105 transition-transform">Shop Now</button>
             </div>
             <div class="md:w-1/2 mt-12 md:mt-0 flex justify-center">
-                <img src="C:\Users\Admin\Prgs\download (1).jpg" alt="Premium Refrigerator" class="w-4/5 floating drop-shadow-2xl">
+                <img src="https://res.cloudinary.com/dwknktuzo/image/upload/v1771929721/download_1_xgve8t.jpg" alt="Home Appliances Showcase" class="w-4/5 floating drop-shadow-2xl">
             </div>
         </div>
     </section>
 
-    <section id="categories" class="container mx-auto px-6 py-16">
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <div class="group relative overflow-hidden bg-blue-500 rounded-2xl p-8 h-80 transition-all duration-300 hover:scale-[1.02] hover:shadow-2xl fade-in">
-                <div class="relative z-10">
-                    <p class="text-white/80 text-sm">Best Cooling</p>
-                    <h3 class="text-white text-3xl font-bold mt-1">Refrigerator</h3>
-                    <button class="mt-4 bg-white/20 backdrop-blur-md text-white px-6 py-2 rounded-full text-sm hover:bg-white hover:text-blue-500 transition-all">Browse</button>
-                </div>
-                <img src="C:\Users\Admin\Prgs\Total cooling confidence_.jpg" class="absolute top-0 right-0 h-[120%] w-[100%] opacity-90 group-hover:scale-110 transition-transform duration-500" alt="Fridge">
+    <section class="container mx-auto px-2 md:px-6 py-16">
+        <div class="grid grid-cols-3 gap-2 md:gap-6">
+            <div class="group relative overflow-hidden bg-blue-500 rounded-xl p-3 h-44 md:h-80 fade-in">
+                <h3 class="text-white text-xs md:text-2xl font-bold relative z-10">Refrigerator</h3>
+                <button class="relative z-10 text-[10px] md:text-sm text-white bg-white/20 px-2 py-1 rounded mt-1">Browse →</button>
+                <img src="https://res.cloudinary.com/dwknktuzo/image/upload/v1771929721/Total_cooling_confidence__pb8hwu.jpg" alt="Premium Refrigerators" class="absolute inset-0 h-full w-full object-cover opacity-80 group-hover:scale-110 transition-all">
             </div>
-            <div class="group relative overflow-hidden bg-yellow-400 rounded-2xl p-8 h-80 transition-all duration-300 hover:scale-[1.02] hover:shadow-2xl fade-in">
-                <div class="relative z-10">
-                    <p class="text-gray-800/80 text-sm">New Tech</p>
-                    <h3 class="text-gray-900 text-3xl font-bold mt-1">Washers</h3>
-                    <button class="mt-4 bg-black/10 text-gray-900 px-6 py-2 rounded-full text-sm hover:bg-black hover:text-white transition-all">Browse</button>
-                </div>
-                <img src="c:\Users\Admin\Downloads\Top 10 Best Washing Machine 2025 😱 Automatic & Semi Automatic Review _ Smart Home Gadget.jpg" class="absolute top-0 right-0 h-[105%] w-[100%] group-hover:scale-110 transition-transform duration-500" alt="Washing Machine">
+            <div class="group relative overflow-hidden bg-yellow-400 rounded-xl p-3 h-44 md:h-80 fade-in">
+                <h3 class="text-gray-900 text-xs md:text-2xl font-bold relative z-10">Washers</h3>
+                <button class="relative z-10 text-[10px] md:text-sm text-black bg-black/10 px-2 py-1 rounded mt-1">Browse →</button>
+                <img src="https://res.cloudinary.com/dwknktuzo/image/upload/v1772005404/LG_Washing_Machine_smhow7.jpg" alt="Washing Machines" class="absolute inset-0 h-full w-full object-cover group-hover:scale-110 transition-all">
             </div>
-            <div class="group relative overflow-hidden bg-red-500 rounded-2xl p-8 h-80 transition-all duration-300 hover:scale-[1.02] hover:shadow-2xl fade-in">
-                <div class="relative z-10">
-                    <p class="text-white/80 text-sm">Trend Devices</p>
-                    <h3 class="text-white text-3xl font-bold mt-1">Air Conditioners</h3>
-                    <button class="mt-4 bg-white/20 backdrop-blur-md text-white px-6 py-2 rounded-full text-sm hover:bg-white hover:text-red-500 transition-all">Browse</button>
-                </div>
-                <img src="c:\Users\Admin\Downloads\Room Cooling Guide_ Calculate Your Perfect AC Size (Updated for 2024).jpg" class="absolute bottom-0 right-0 h-[100%] w-[100%] group-hover:scale-110 transition-transform duration-500" alt="AC">
+            <div class="group relative overflow-hidden bg-red-500 rounded-xl p-3 h-44 md:h-80 fade-in">
+                <h3 class="text-white text-xs md:text-2xl font-bold relative z-10">AC</h3>
+                <button class="relative z-10 text-[10px] md:text-sm text-white bg-white/20 px-2 py-1 rounded mt-1">Browse →</button>
+                <img src="https://res.cloudinary.com/dwknktuzo/image/upload/v1771929721/Cool_Comfort_at_No_Cost__How_to_Get_a_Free_Air_Conditioner_rwatde.jpg" alt="Air Conditioners" class="absolute inset-0 h-full w-full object-cover group-hover:scale-110 transition-all">
             </div>
         </div>
-        
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-6">
-            <div class="group bg-gray-100 rounded-2xl p-8 h-64 flex items-center justify-between transition-all hover:bg-white hover:shadow-xl fade-in">
-                <div>
-                    <h3 class="text-2xl font-bold">Air Coolers</h3>
-                    <button class="mt-4 text-red-600 font-bold hover:underline">Browse →</button>
-                </div>
-                <div class="bg-teal-100 p-4 rounded-full group-hover:rotate-12 transition-transform">
-                    <svg class="w-12 h-12 text-teal-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M13 10V3L4 14h7v7l9-11h-7z" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                </div>
+        <div class="grid grid-cols-3 gap-2 md:gap-6 mt-2 md:mt-6">
+            <div class="bg-white border rounded-xl p-3 h-32 md:h-64 flex flex-col justify-between fade-in shadow-sm">
+                <h3 class="text-xs md:text-xl font-bold uppercase">Coolers</h3>
+                <button class="text-red-600 font-bold text-[10px] md:text-base text-left">Browse →</button>
             </div>
-            <div class="group bg-gray-100 rounded-2xl p-8 h-64 flex items-center justify-between transition-all hover:bg-white hover:shadow-xl fade-in">
-                <div>
-                    <h3 class="text-2xl font-bold">Cooktops</h3>
-                    <button class="mt-4 text-red-600 font-bold hover:underline">Browse →</button>
-                </div>
-                <div class="bg-orange-100 p-4 rounded-full group-hover:rotate-12 transition-transform">
-                    <svg class="w-12 h-12 text-orange-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" stroke-width="2"/></svg>
-                </div>
+            <div class="bg-white border rounded-xl p-3 h-32 md:h-64 flex flex-col justify-between fade-in shadow-sm">
+                <h3 class="text-xs md:text-xl font-bold uppercase">Cooktops</h3>
+                <button class="text-red-600 font-bold text-[10px] md:text-base text-left">Browse →</button>
             </div>
-           <div class="group bg-blue-600 rounded-2xl p-8 h-64 flex items-center justify-between transition-all hover:shadow-2xl fade-in text-white overflow-hidden relative">
-    <div class="relative z-10">
-        <h3 class="text-2xl font-bold">Smart LED TV</h3>
-        <button class="mt-4 text-white font-bold bg-blue-500 px-4 py-1 rounded-full hover:bg-white hover:text-blue-600 transition-all">Browse</button>
-    </div>
-    <img src="c:\Users\Admin\Downloads\img.jpg" class="absolute right-0 top-0 h-[100%] w-[100%] opacity-80 group-hover:scale-110 transition-all duration-500" 
-         alt="TV">
-</div>
-    </section>
-
-    <section class="container mx-auto px-6 py-12 border-y border-gray-100">
-        <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
-            <div class="flex flex-col items-center text-center space-y-2 group">
-                <div class="p-4 bg-gray-50 rounded-full group-hover:bg-red-50 transition-colors">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-red-600" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0a2 2 0 012 2v4a2 2 0 01-2 2H4a2 2 0 01-2-2v-4a2 2 0 012-2m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4" stroke-width="2"/></svg>
-                </div>
-                <h4 class="font-bold">Free Shipping</h4>
-                <p class="text-xs text-gray-400 uppercase tracking-widest">On all orders</p>
-            </div>
-            <div class="flex flex-col items-center text-center space-y-2 group">
-                <div class="p-4 bg-gray-50 rounded-full group-hover:bg-red-50 transition-colors">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-red-600" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" stroke-width="2"/></svg>
-                </div>
-                <h4 class="font-bold">Money Guarantee</h4>
-                <p class="text-xs text-gray-400 uppercase tracking-widest">30 Days Return</p>
-            </div>
-            <div class="flex flex-col items-center text-center space-y-2 group">
-                <div class="p-4 bg-gray-50 rounded-full group-hover:bg-red-50 transition-colors">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-red-600" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path d="M18.364 5.636l-3.536 3.536m0 5.656l3.536 3.536M9.172 9.172L5.636 5.636m3.536 9.192l-3.536 3.536M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-5 0a4 4 0 11-8 0 4 4 0 018 0z" stroke-width="2"/></svg>
-                </div>
-                <h4 class="font-bold">Online Support</h4>
-                <p class="text-xs text-gray-400 uppercase tracking-widest">Technical 24/7</p>
-            </div>
-            <div class="flex flex-col items-center text-center space-y-2 group">
-                <div class="p-4 bg-gray-50 rounded-full group-hover:bg-red-50 transition-colors">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-red-600" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z" stroke-width="2"/></svg>
-                </div>
-                <h4 class="font-bold">Secure Payment</h4>
-                <p class="text-xs text-gray-400 uppercase tracking-widest">All Cards Accepted</p>
+            <div class="group relative overflow-hidden bg-blue-600 rounded-xl p-3 h-32 md:h-64 fade-in">
+                <h3 class="text-white text-xs md:text-xl font-bold relative z-10">Smart TV</h3>
+                <button class="relative z-10 text-[10px] md:text-sm text-white bg-white/20 px-2 py-1 rounded mt-1">Browse →</button>
+                <img src="https://res.cloudinary.com/dwknktuzo/image/upload/v1772005404/ion_Communication_and_Kabir_Enterprises_lm3lyd.jpg" alt="Smart Televisions" class="absolute inset-0 h-full w-full object-cover opacity-50 group-hover:scale-110 transition-all">
             </div>
         </div>
     </section>
 
     <section id="offers" class="container mx-auto px-6 py-12">
-        <div class="bg-red-600 rounded-3xl overflow-hidden relative p-8 md:p-16 flex flex-col md:flex-row items-center justify-between text-white fade-in">
-            <div class="space-y-4">
-                <span class="text-white/80 font-medium">20% OFF</span>
-                <h2 class="text-4xl md:text-6xl font-black uppercase leading-tight">Final Summer <br> Sale</h2>
-                <p class="text-white/60">15 Nov To 7 Dec</p>
-            </div>
-            <div class="relative group mt-8 md:mt-0">
-                <img src="https://images.unsplash.com/photo-1593784991095-a205029471b6?auto=format&fit=crop&q=80&w=600" alt="Smart TV Sale" class="w-96 rounded-xl shadow-2xl transition-transform group-hover:scale-105 duration-500">
-                <button class="absolute -bottom-5 left-1/2 -translate-x-1/2 bg-white text-red-600 px-8 py-3 rounded-full font-bold shadow-xl hover:shadow-[0_0_20px_rgba(255,255,255,0.5)] transition-all">Shop Now</button>
-            </div>
-        </div>
-    </section>
-
-    <section id="shop" class="container mx-auto px-6 py-16">
-        <div class="text-center mb-12">
-            <h2 class="text-3xl font-bold text-gray-900">Best Seller Products</h2>
-            <p class="text-gray-500 mt-2">The most trusted appliances by our community</p>
-        </div>
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-            <div class="group bg-white rounded-3xl p-6 shadow-sm hover:shadow-2xl hover:-translate-y-2 transition-all duration-300 fade-in">
-                <div class="relative aspect-square mb-6 overflow-hidden rounded-2xl bg-gray-50">
-                    <img src="https://images.unsplash.com/photo-1550009158-9ebf69173e03?auto=format&fit=crop&q=80&w=400" alt="Product" class="w-full h-full object-contain mix-blend-multiply group-hover:scale-110 transition-transform duration-500">
+        <div class="bg-red-600 rounded-[2rem] p-8 md:p-16 flex flex-col md:flex-row items-center justify-between text-white fade-in shadow-2xl">
+            <div class="md:w-2/3">
+                <span class="text-white/80 font-medium tracking-widest uppercase text-sm">Exclusive Deals</span>
+                <div class="typing-box">
+                    <h2 id="typing-heading" class="text-4xl md:text-7xl font-black uppercase premium-gradient leading-tight"></h2>
+                    <span class="cursor"></span>
                 </div>
-                <h3 class="font-bold text-gray-800">Samsung OLED 4K TV</h3>
-                <p class="text-red-600 font-bold mt-2">$899.00</p>
-                <button class="w-full mt-4 bg-gray-900 text-white py-3 rounded-xl opacity-0 group-hover:opacity-100 transition-all active:scale-95">Add to Cart</button>
+                <p class="text-white/70 mt-4">15 Nov To 7 Dec - Don't miss out!</p>
             </div>
-            <div class="group bg-white rounded-3xl p-6 shadow-sm hover:shadow-2xl hover:-translate-y-2 transition-all duration-300 fade-in">
-                <div class="relative aspect-square mb-6 overflow-hidden rounded-2xl bg-gray-50">
-                    <img src="https://images.unsplash.com/photo-1571175443880-49e1d25b2bc5?auto=format&fit=crop&q=80&w=400" alt="Product" class="w-full h-full object-contain mix-blend-multiply group-hover:scale-110 transition-transform duration-500">
-                </div>
-                <h3 class="font-bold text-gray-800">Double Door Refrigerator</h3>
-                <p class="text-red-600 font-bold mt-2">$1,249.00</p>
-                <button class="w-full mt-4 bg-gray-900 text-white py-3 rounded-xl opacity-0 group-hover:opacity-100 transition-all active:scale-95">Add to Cart</button>
-            </div>
-            <div class="group bg-white rounded-3xl p-6 shadow-sm hover:shadow-2xl hover:-translate-y-2 transition-all duration-300 fade-in">
-                <div class="relative aspect-square mb-6 overflow-hidden rounded-2xl bg-gray-50">
-                    <img src="https://images.unsplash.com/photo-1626806819282-2c1dc01a5e0c?auto=format&fit=crop&q=80&w=400" alt="Product" class="w-full h-full object-contain mix-blend-multiply group-hover:scale-110 transition-transform duration-500">
-                </div>
-                <h3 class="font-bold text-gray-800">LG Front Load Washer</h3>
-                <p class="text-red-600 font-bold mt-2">$549.00</p>
-                <button class="w-full mt-4 bg-gray-900 text-white py-3 rounded-xl opacity-0 group-hover:opacity-100 transition-all active:scale-95">Add to Cart</button>
-            </div>
-            <div class="group bg-white rounded-3xl p-6 shadow-sm hover:shadow-2xl hover:-translate-y-2 transition-all duration-300 fade-in">
-                <div class="relative aspect-square mb-6 overflow-hidden rounded-2xl bg-gray-50">
-                    <img src="https://images.unsplash.com/photo-1631545693050-7052a9709282?auto=format&fit=crop&q=80&w=400" alt="Product" class="w-full h-full object-contain mix-blend-multiply group-hover:scale-110 transition-transform duration-500">
-                </div>
-                <h3 class="font-bold text-gray-800">Inverter Split AC 1.5T</h3>
-                <p class="text-red-600 font-bold mt-2">$429.00</p>
-                <button class="w-full mt-4 bg-gray-900 text-white py-3 rounded-xl opacity-0 group-hover:opacity-100 transition-all active:scale-95">Add to Cart</button>
-            </div>
+            <img src="https://images.unsplash.com/photo-1593784991095-a205029471b6?auto=format&fit=crop&q=80&w=600" alt="Flash Sale" class="w-64 md:w-96 rounded-2xl shadow-2xl mt-8 md:mt-0">
         </div>
     </section>
 
     <footer id="contact" class="bg-gray-900 text-white pt-20 pb-10">
         <div class="container mx-auto px-6 grid grid-cols-1 md:grid-cols-4 gap-12">
-            <div class="space-y-6">
-                <h2 class="text-2xl font-bold">JALSA <span class="text-red-600">ELECTRONICS</span></h2>
-                <p class="text-gray-400 leading-relaxed">Your one-stop destination for premium home appliances. Quality and service you can trust since 1995.</p>
-                <div class="flex space-x-4">
-                    <div class="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-red-600 transition-colors cursor-pointer italic">f</div>
-                    <div class="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-red-600 transition-colors cursor-pointer italic">in</div>
-                    <div class="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-red-600 transition-colors cursor-pointer italic">tw</div>
+            <div class="space-y-4">
+                <h2 class="text-2xl font-bold">JALSA <span class="text-red-600">Electronics</span></h2>
+                <p class="text-gray-400 text-sm">Quality and trust since 1995. Your one-stop shop for premium home appliances.</p>
+            </div>
+            <div>
+                <h4 class="font-bold mb-4">Quick Links</h4>
+                <ul class="text-gray-400 space-y-2 text-sm">
+                    <li><a href="#home" class="hover:text-white">Home</a></li>
+                    <li><a href="#categories" class="hover:text-white">Categories</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="font-bold mb-4">Contact</h4>
+                <p class="text-gray-400 text-sm">📍 Mumbai, Maharashtra, India</p>
+                <p class="text-gray-400 text-sm mt-2">📞 +91 98XXX XXXXX</p>
+            </div>
+            <div>
+                <h4 class="font-bold mb-4">Follow Us</h4>
+                <div class="flex gap-4 text-gray-400">
+                    <a href="#" class="hover:text-red-500 transition-colors">Instagram</a>
+                    <a href="#" class="hover:text-red-500 transition-colors">Facebook</a>
                 </div>
             </div>
-            <div>
-                <h4 class="text-lg font-bold mb-6">Quick Links</h4>
-                <ul class="space-y-4 text-gray-400">
-                    <li><a href="#" class="hover:text-white transition-colors">About Us</a></li>
-                    <li><a href="#" class="hover:text-white transition-colors">Our Services</a></li>
-                    <li><a href="#" class="hover:text-white transition-colors">Privacy Policy</a></li>
-                    <li><a href="#" class="hover:text-white transition-colors">Affiliate Program</a></li>
-                </ul>
-            </div>
-            <div>
-                <h4 class="text-lg font-bold mb-6">Categories</h4>
-                <ul class="space-y-4 text-gray-400">
-                    <li><a href="#" class="hover:text-white transition-colors">Refrigerators</a></li>
-                    <li><a href="#" class="hover:text-white transition-colors">Washing Machines</a></li>
-                    <li><a href="#" class="hover:text-white transition-colors">Air Conditioners</a></li>
-                    <li><a href="#" class="hover:text-white transition-colors">Smart TVs</a></li>
-                </ul>
-            </div>
-            <div>
-                <h4 class="text-lg font-bold mb-6">Contact Info</h4>
-                <ul class="space-y-4 text-gray-400">
-                    <li class="flex items-center space-x-3"><span class="text-red-600">📍</span> <span>123 Jalsa Market, Mumbai, India</span></li>
-                    <li class="flex items-center space-x-3"><span class="text-red-600">📞</span> <span>+91 98765 43210</span></li>
-                    <li class="flex items-center space-x-3"><span class="text-red-600">✉️</span> <span>care@jalsaelectronics.com</span></li>
-                </ul>
-            </div>
         </div>
-        <div class="container mx-auto px-6 border-t border-gray-800 mt-16 pt-8 text-center text-gray-500 text-sm">
+        <div class="text-center text-gray-600 text-xs border-t border-gray-800 mt-16 pt-8">
             &copy; 2026 Jalsa Refrigerator & Electronics. All rights reserved.
         </div>
     </footer>
 
     <script>
-        // Intersection Observer for Fade-In Animation
-        const observerOptions = {
-            threshold: 0.1
-        };
+        // Typing Animation logic
+        const message = "Offers Coming Soon...";
+        const target = document.getElementById("typing-heading");
+        let i = 0;
 
+        function playTyping() {
+            if (i < message.length) {
+                // Use textContent for better performance than innerHTML
+                target.textContent += message.charAt(i);
+                i++;
+                setTimeout(playTyping, 120);
+            } else {
+                setTimeout(() => {
+                    target.textContent = "";
+                    i = 0;
+                    playTyping();
+                }, 3000);
+            }
+        }
+
+        // Appearance Observer (Scroll animation)
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
                     entry.target.classList.add('appear');
                 }
             });
-        }, observerOptions);
+        }, { threshold: 0.1 });
 
         document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
-
-        // Subtle Page Load Trigger
-        window.addEventListener('load', () => {
-            document.body.classList.add('loaded');
-        });
+        
+        // Start typing on load
+        window.onload = playTyping;
     </script>
 </body>
 </html>
