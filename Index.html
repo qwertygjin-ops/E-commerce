@@ -21,12 +21,13 @@
         .premium-gradient {
             background-color: #ffffff;
             -webkit-background-clip: text;
+            background-clip: transparent;
             -webkit-text-fill-color: transparent;
         }
 
         /* Prevent Layout Jump */
         .typing-box { min-height: 80px; display: flex; align-items: center; }
-        .cursor { width: 3px; height: 1.2em; background-color: white; margin-left: 5px; animation: blink 0.7s infinite; }
+        .cursor { width: 3px; height: 1.2em; background-color: white; margin-left: 5px; animation: blink 0.9s infinite; }
         @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
 
         .nav-link::after { content: ''; display: block; width: 0; height: 2px; background: #ef4444; transition: width .3s; }
@@ -43,7 +44,6 @@
             <div class="hidden md:flex space-x-8 font-medium text-gray-600">
                 <a href="#" class="nav-link">Home</a>
                 <a href="#shop" class="nav-link">Shop</a>
-                <a href="#categories" class="nav-link">Categories</a>
                 <a href="#offers" class="nav-link">Offers</a>
                 <a href="#contact" class="nav-link">Contact</a>
             </div>
@@ -65,38 +65,38 @@
         </div>
     </section>
 
-    <section id="categories" class="container mx-auto px-2 md:px-6 py-16">
+    <section class="container mx-auto px-2 md:px-6 py-16">
         <div class="grid grid-cols-3 gap-2 md:gap-6">
             <div class="group relative overflow-hidden bg-blue-500 rounded-xl p-3 h-44 md:h-80 fade-in">
                 <h3 class="text-white text-xs md:text-2xl font-bold relative z-10">Refrigerator</h3>
-                <button class="relative z-10 text-[10px] md:text-sm text-white bg-white/20 px-2 py-1 rounded mt-1">Browse →</button>
+                <button class="relative z-10 text-[10px] md:text-sm text-white bg-white/30 px-2 py-1 rounded mt-1">View products →</button>
                 <img src="https://res.cloudinary.com/dwknktuzo/image/upload/v1771929721/Total_cooling_confidence__pb8hwu.jpg" alt="Premium Refrigerators" class="absolute inset-0 h-full w-full object-cover opacity-80 group-hover:scale-110 transition-all">
             </div>
             <div class="group relative overflow-hidden bg-yellow-400 rounded-xl p-3 h-44 md:h-80 fade-in">
                 <h3 class="text-gray-900 text-xs md:text-2xl font-bold relative z-10">Washers</h3>
-                <button class="relative z-10 text-[10px] md:text-sm text-black bg-black/10 px-2 py-1 rounded mt-1">Browse →</button>
+                <button class="relative z-10 text-[10px] md:text-sm text-black bg-white/10 px-2 py-1 rounded mt-1">View products →</button>
                 <img src="https://res.cloudinary.com/dwknktuzo/image/upload/v1772005404/LG_Washing_Machine_smhow7.jpg" alt="Washing Machines" class="absolute inset-0 h-full w-full object-cover group-hover:scale-110 transition-all">
             </div>
             <div class="group relative overflow-hidden bg-red-500 rounded-xl p-3 h-44 md:h-80 fade-in">
                 <h3 class="text-white text-xs md:text-2xl font-bold relative z-10">AC</h3>
-                <button class="relative z-10 text-[10px] md:text-sm text-white bg-white/20 px-2 py-1 rounded mt-1">Browse →</button>
+                <button class="relative z-10 text-[10px] md:text-sm text-white bg-white/30 px-2 py-1 rounded mt-1">View products →</button>
                 <img src="https://res.cloudinary.com/dwknktuzo/image/upload/v1771929721/Cool_Comfort_at_No_Cost__How_to_Get_a_Free_Air_Conditioner_rwatde.jpg" alt="Air Conditioners" class="absolute inset-0 h-full w-full object-cover group-hover:scale-110 transition-all">
             </div>
         </div>
         <div class="grid grid-cols-3 gap-2 md:gap-6 mt-2 md:mt-6">
             <div class="bg-white border rounded-xl p-3 h-32 md:h-64 flex flex-col justify-between fade-in shadow-sm">
                 <h3 class="text-xs md:text-xl font-bold uppercase">Coolers</h3>
-                <button class="text-red-600 font-bold text-[10px] md:text-base text-left">Browse →</button>
+                <button class="text-red-600 font-bold text-[10px] md:text-base text-left">View products →</button>
             </div>
             <div class="bg-white border rounded-xl p-3 h-32 md:h-64 flex flex-col justify-between fade-in shadow-sm">
                 <h3 class="text-xs md:text-xl font-bold uppercase">Cooktops</h3>
-                <button class="text-red-600 font-bold text-[10px] md:text-base text-left">Browse →</button>
+                <button class="text-red-600 font-bold text-[10px] md:text-base text-left">View products →</button>
             </div>
-            <div class="group relative overflow-hidden bg-blue-600 rounded-xl p-3 h-32 md:h-64 fade-in">
-                <h3 class="text-white text-xs md:text-xl font-bold relative z-10">Smart TV</h3>
-                <button class="relative z-10 text-[10px] md:text-sm text-white bg-white/20 px-2 py-1 rounded mt-1">Browse →</button>
-                <img src="https://res.cloudinary.com/dwknktuzo/image/upload/v1772005404/ion_Communication_and_Kabir_Enterprises_lm3lyd.jpg" alt="Smart Televisions" class="absolute inset-0 h-full w-full object-cover opacity-50 group-hover:scale-110 transition-all">
+            <div class="bg-white border rounded-xl p-3 h-32 md:h-64 flex flex-col justify-between fade-in shadow-sm">
+                <h3 class="text-xs md:text-xl font-bold uppercase">Smart Tv</h3>
+                <button class="text-red-600 font-bold text-[10px] md:text-base text-left">View products →</button>      
             </div>
+
         </div>
     </section>
 
@@ -110,7 +110,7 @@
                 </div>
                 <p class="text-white/70 mt-4">15 Nov To 7 Dec - Don't miss out!</p>
             </div>
-            <img src="https://images.unsplash.com/photo-1593784991095-a205029471b6?auto=format&fit=crop&q=80&w=600" alt="Flash Sale" class="w-64 md:w-96 rounded-2xl shadow-2xl mt-8 md:mt-0">
+            <img src="https://res.cloudinary.com/dwknktuzo/image/upload/v1771929721/download_1_xgve8t.jpg" alt="Flash Sale" class="w-64 md:w-96 rounded-2xl shadow-2xl mt-8 md:mt-0">
         </div>
     </section>
 
@@ -129,7 +129,7 @@
             </div>
             <div>
                 <h4 class="font-bold mb-4">Contact</h4>
-                <p class="text-gray-400 text-sm">📍 Mumbai, Maharashtra, India</p>
+                <p class="text-gray-400 text-sm">📍 MANEK CHOWK UNA <br> Gir Somnath 362560, India</p>
                 <p class="text-gray-400 text-sm mt-2">📞 +91 98XXX XXXXX</p>
             </div>
             <div>
