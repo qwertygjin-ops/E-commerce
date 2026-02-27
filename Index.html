@@ -46,44 +46,27 @@
         .cursor { width: 3px; height: 1.2em; background-color: white; margin-left: 5px; animation: blink 0.9s infinite; }
         @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
 
-      /* Search Box */
-.search-box-container{
-  position:relative;
-  background:#f1f5f9;
-  border-radius:50px;
-  height:42px;
-  display:flex;
-  align-items:center;
-  overflow:hidden;
-}
+        .search-box-container {
+            position: relative;
+            background: #f1f5f9;
+            border-radius: 50px;
+            overflow: hidden;
+            height: 42px;
+            display: flex;
+            align-items: center;
+            transition: all 0.3s ease;
+        }
 
-.search-box-container::after{
-  content:'';
-  position:absolute;
-  bottom:0;
-  left:-100%;
-  width:100%;
-  height:3px;
-  background:linear-gradient(90deg,#FF9933,#ffffff,#128807,#FF9933);
-  background-size:200% 100%;
-  opacity:0;
-}
+        .search-box-container:focus-within::after {
+            left: 0;
+            opacity: 1;
+            animation: lineRun 1.5s linear infinite;
+        }
 
-.search-box-container:focus-within::after{
-  left:0;
-  opacity:1;
-  animation:lineRun 1.5s linear infinite;
-}
-
-@keyframes lineRun{
-  from{background-position:100% 0;}
-  to{background-position:-100% 0;}
-}
-
-#productSearch:focus{
-  outline:none;
-  background:transparent;
-}
+        @keyframes lineRun {
+            0% { background-position: 100% 0%; }
+            100% { background-position: -100% 0%; }
+        }
     </style>
 </head>
 <body class="overflow-x-hidden">
@@ -102,7 +85,7 @@
                 </div>
                 <div class="hidden lg:flex items-center ml-10 space-x-6 text-sm font-semibold text-gray-600">
                     <a href="#home" class="hover:text-red-600">Home</a>
-                    <a href="products.html#shop" class="hover:text-red-600">Shop</a>
+                    <a href="products.html" class="hover:text-red-600">Shop</a>
                     <a href="#offers" class="hover:text-red-600">Offers</a>
                     <a href="#contact" class="hover:text-red-600">Contact</a>
                 </div>
