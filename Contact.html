@@ -28,8 +28,9 @@
             min-width: 180px !important;
             max-width: 180px !important;
             display: inline-flex !important;
-            margin: 0 auto 0 0 !important; /* Align to left */
             white-space: nowrap !important; /* Prevents text from wrapping */
+            align-items: center;
+            justify-content: center;
         }
         /* For mobile, keep exact same size but center it if needed */
         @media (max-width: 640px) {
@@ -38,7 +39,7 @@
                 min-width: 180px !important;
                 max-width: 180px !important;
                 margin: 0 auto !important; /* Center on mobile */
-                white-space: nowrap !important; /* Prevents text from wrapping */
+                white-space: nowrap !important;
             }
         }
         /* Ensure button content stays in one row */
@@ -48,6 +49,21 @@
         }
         .fixed-submit-btn i {
             flex-shrink: 0 !important;
+        }
+        /* Make the container for helper+button side by side on desktop */
+        .helper-button-row {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+        }
+        @media (max-width: 640px) {
+            .helper-button-row {
+                flex-direction: column;
+                align-items: center;
+                gap: 0.75rem;
+            }
         }
     </style>
 </head>
@@ -69,7 +85,7 @@
         </div>
     </nav>
 
-    <!-- ========== NEW LET'S CONNECT SECTION – restyled to match the home hero style (bg-gray-100 rounded-3xl, similar padding, etc.) ========== -->
+    <!-- ========== LET'S CONNECT SECTION – restyled with helper + button in one row ========== -->
     <section id="contact-section"  class="container mx-auto px-6 py-12">
         <!-- main container uses same classes as #home: container mx-auto px-6 py-12 -->
         <div class="bg-gray-100 rounded-3xl overflow-hidden flex flex-col lg:flex-row items-center p-8 md:p-16 fade-in lg:gap-16">
@@ -119,8 +135,9 @@
                         </div>
                     </div>
 
-                    <!-- helper text + submit button - centered container on mobile, left on desktop -->
-                    <div class="flex flex-col items-center sm:items-start gap-4 pt-2">
+                    <!-- helper text + submit button in ONE ROW (desktop) / stacked on mobile -->
+                    <div class="helper-button-row pt-2">
+                        <p class="text-sm text-gray-400 flex items-center gap-1"><i class="fa-regular fa-lightbulb text-yellow-500"></i> we reply within 2h</p>
                         <button type="submit" 
                                 class="fixed-submit-btn bg-red-600 text-white px-8 py-3 rounded-full font-semibold shadow-md hover:scale-105 transition-transform inline-flex items-center justify-center gap-2 text-sm sm:text-base">
                             <i class="fa-regular fa-paper-plane"></i> 
