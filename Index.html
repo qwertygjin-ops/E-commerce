@@ -12,6 +12,8 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
     <script src="https://cdn.jsdelivr.net/gh/studio-freight/lenis@1.0.19/bundled/lenis.min.js"></script>
 
+     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
     <style>
         *, *::before, *::after { box-sizing: border-box; }
 
@@ -360,6 +362,47 @@ input:-webkit-autofill:active {
         @media (max-width: 768px) {
             .gsap-reveal { transform: translateY(40px) scale(0.9); }
         }
+
+
+        /* CONTACT CSS */
+                /* Ensure button content stays in one row */
+        .fixed-submit-btn span {
+            white-space: nowrap !important;
+            display: inline-block !important;
+        }
+        .fixed-submit-btn i {
+            flex-shrink: 0 !important;
+        }
+
+                /* Make the container for helper+button side by side on desktop */
+        .helper-button-row {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+        }
+        @media (max-width: 640px) {
+            .helper-button-row {
+                flex-direction: column;
+                align-items: center;
+                gap: 0.75rem;
+            }
+        }
+
+
+        /* map css*/
+        /* Map container hover effect */
+.map-container {
+    transition: transform 0.4s ease, box-shadow 0.4s ease;
+    cursor: crosshair; /* Thoda premium feel ke liye */
+}
+
+.map-container:hover {
+    transform: scale(1.01);
+    box-shadow: 0 30px 80px rgba(0,0,0,0.18);
+}
+
     </style>
 </head>
 <body class="overflow-x-hidden">
@@ -467,35 +510,35 @@ input:-webkit-autofill:active {
         </div>
     </section>
 
-    <section id="contact-section" class="container mx-auto px-6 py-12">
+     <section id="contact"  class="container mx-auto px-6 py-12">
         <!-- main container uses same classes as #home: container mx-auto px-6 py-12 -->
         <div class="bg-gray-100 rounded-3xl overflow-hidden flex flex-col lg:flex-row items-center p-8 md:p-16 fade-in lg:gap-16">
             <!-- left column: form and heading (similar to left text block) -->
             <div class="lg:w-3/5 w-full space-y-6">
                 <!-- badge -->
                 <span class="text-red-600 font-semibold tracking-widest uppercase text-sm flex items-center gap-1">
-                    <i class="fa-regular fa-pen-to-square"></i> 📬 get in touch
+                    <i class="fa-regular fa-pen-to-square"></i> 📬 Get In Touch
                 </span>
                 <!-- main heading (similar to "Smart Home Appliances") -->
                 <h2 class="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 leading-tight">Let's <span class="text-red-600">Connect</span></h2>
                 <!-- subheading / helps with line, styled like <p> under hero -->
                 <p class="text-gray-500 text-lg flex items-center gap-2 flex-wrap">
                     <i class="fa-regular fa-circle-check text-green-500"></i> 
-                    helps with: sales, service, repairs & support
+                    Helps With: Sales, Service, Repairs & Support
                 </p>
 
                 <!-- CONTACT FORM (compact, but using similar spacing as hero text) -->
-                <form id="contact" class="space-y-5 pt-4">
+                < <form id="contactForm" class="space-y-5 pt-4">
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                         <!-- name -->
                         <div>
-                            <label class="block text-sm font-medium text-gray-700 mb-1"><i class="fa-regular fa-user mr-1 text-red-500"></i> full name *</label>
+                            <label class="block text-sm font-medium text-gray-700 mb-1"><i class="fa-regular fa-user mr-1 text-red-500"></i> Full Name *</label>
                             <input type="text" placeholder="e.g. Priya Sharma" required
                                 class="w-full px-4 py-3 rounded-xl bg-white border border-gray-200 text-gray-800 placeholder-gray-400 focus:border-red-400 focus:ring-2 focus:ring-red-300 outline-none transition">
                         </div>
                         <!-- phone -->
                         <div>
-                            <label class="block text-sm font-medium text-gray-700 mb-1"><i class="fa-solid fa-phone mr-1 text-red-500"></i> phone *</label>
+                            <label class="block text-sm font-medium text-gray-700 mb-1"><i class="fa-solid fa-phone mr-1 text-red-500"></i> Phone *</label>
                             <input type="tel" placeholder="+91 98765 43210" required
                                 class="w-full px-4 py-3 rounded-xl bg-white border border-gray-200 text-gray-800 placeholder-gray-400 focus:border-red-400 focus:ring-2 focus:ring-red-300 outline-none transition">
                         </div>
@@ -504,24 +547,25 @@ input:-webkit-autofill:active {
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                         <!-- address -->
                         <div>
-                            <label class="block text-sm font-medium text-gray-700 mb-1"><i class="fa-solid fa-location-dot mr-1 text-red-500"></i> address</label>
+                            <label class="block text-sm font-medium text-gray-700 mb-1"><i class="fa-solid fa-location-dot mr-1 text-red-500"></i> Address</label>
                             <input type="text" placeholder="Street, city, pin code"
                                 class="w-full px-4 py-3 rounded-xl bg-white border border-gray-200 text-gray-800 placeholder-gray-400 focus:border-red-400 focus:ring-2 focus:ring-red-300 outline-none transition">
                         </div>
                         <!-- email -->
                         <div>
-                            <label class="block text-sm font-medium text-gray-700 mb-1"><i class="fa-regular fa-envelope mr-1 text-red-500"></i> email *</label>
+                            <label class="block text-sm font-medium text-gray-700 mb-1"><i class="fa-regular fa-envelope mr-1 text-red-500"></i> Email *</label>
                             <input type="email" placeholder="name@example.com" required
                                 class="w-full px-4 py-3 rounded-xl bg-white border border-gray-200 text-gray-800 placeholder-gray-400 focus:border-red-400 focus:ring-2 focus:ring-red-300 outline-none transition">
                         </div>
                     </div>
 
-                    <!-- helper text + submit button, aligned similar to hero button group -->
-                    <div class="flex flex-col sm:flex-row sm:items-center gap-4 pt-2">
-                        <p class="text-sm text-gray-400 flex items-center gap-1"><i class="fa-regular fa-lightbulb text-yellow-500"></i> we reply within 2-4h</p>
+                    <!-- helper text + submit button in ONE ROW (desktop) / stacked on mobile -->
+                    <div class="helper-button-row pt-2">
+                        <p class="text-sm text-gray-400 flex items-center gap-1"><i class="fa-regular fa-lightbulb text-yellow-500"></i> we reply within 2h</p>
                         <button type="submit" 
-                                class="bg-red-600 text-white px-8 py-3 rounded-full font-semibold shadow-md hover:scale-105 transition-transform inline-flex items-center gap-2 text-sm sm:text-base">
-                            <i class="fa-regular fa-paper-plane"></i> send message
+                                class="fixed-submit-btn bg-red-600 text-white px-8 py-3 rounded-full font-semibold shadow-md hover:scale-105 transition-transform inline-flex items-center justify-center gap-2 text-sm sm:text-base">
+                            <i class="fa-regular fa-paper-plane"></i> 
+                            <span>Send Message</span>
                         </button>
                     </div>
                 </form>
@@ -542,7 +586,7 @@ input:-webkit-autofill:active {
                             123 Jalsa Market, Andheri East,<br> Mumbai 400069, India
                         </p>
                         <p class="text-xs text-gray-400 mt-2 flex items-center gap-1">
-                            <i class="fa-regular fa-clock"></i> open Mon–Sat 10am–8pm
+                            <i class="fa-regular fa-clock"></i> Open Mon–Sat 10am–8pm
                         </p>
                     </div>
                 </div>
@@ -575,7 +619,9 @@ input:-webkit-autofill:active {
                 </div>
             </div>
         </div>
-  </section>
+    </section>
+
+
 
     <footer class="bg-gray-900 text-white pt-20 pb-10">
         <div class="container mx-auto px-6 text-center border-t border-gray-800 pt-8">
