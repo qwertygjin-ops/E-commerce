@@ -13,27 +13,54 @@
     <script src="https://cdn.jsdelivr.net/gh/studio-freight/lenis@1.0.19/bundled/lenis.min.js"></script>
 
     <style>
-        body { font-family: 'Poppins', sans-serif; background-color: #f8fafc; -webkit-font-smoothing: antialiased; }
-        
-        .gsap-reveal { opacity: 0; transform: translateY(30px); transition: none; }
-        
+        *, *::before, *::after { box-sizing: border-box; }
+
+        :root {
+            --red: #dc2626;
+            --red-dark: #b91c1c;
+            --red-light: #fee2e2;
+            --shadow-sm: 0 2px 8px rgba(0,0,0,0.06);
+            --shadow-md: 0 8px 30px rgba(0,0,0,0.10);
+            --shadow-lg: 0 20px 60px rgba(0,0,0,0.14);
+            --shadow-red: 0 8px 32px rgba(220,38,38,0.28);
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f8fafc;
+            -webkit-font-smoothing: antialiased;
+            overflow-x: hidden;
+        }
+
+        /* ── Scroll reveal ── */
+        .gsap-reveal {
+            opacity: 0.15;
+            transform: translateY(50px) scale(0.88);
+            filter: blur(14px);
+            will-change: transform, opacity, filter;
+        }
+
+        /* ── Morph BG ── */
         #morph-bg {
             position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
             z-index: -1;
             pointer-events: none;
-            opacity: 0.4;
+            opacity: 0.35;
         }
 
-        .floating { animation: floating 3s ease-in-out infinite; border-radius: 10px; }
+        /* ── Floating hero image ── */
+        .floating {
+            animation: floating 3.5s ease-in-out infinite;
+            border-radius: 10px;
+        }
         @keyframes floating {
             0%, 100% { transform: translateY(0px); }
-            50% { transform: translateY(-15px); }
+            50%       { transform: translateY(-15px); }
         }
 
+        /* ── Premium gradient text ── */
         .premium-gradient {
             background: #ffffff;
             -webkit-background-clip: text;
@@ -42,10 +69,18 @@
             color: transparent;
         }
 
+        /* ── Typing ── */
         .typing-box { min-height: 80px; display: flex; align-items: center; }
-        .cursor { width: 3px; height: 1.2em; background-color: white; margin-left: 5px; animation: blink 0.9s infinite; }
-        @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
+        .cursor {
+            width: 3px; height: 1.2em;
+            background-color: white;
+            margin-left: 5px;
+            animation: blink 0.9s infinite;
+            flex-shrink: 0;
+        }
+        @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }
 
+        /* ── Search box ── */
         .search-box-container {
             position: relative;
             background: #f1f5f9;
@@ -54,18 +89,178 @@
             height: 42px;
             display: flex;
             align-items: center;
-            transition: all 0.3s ease;
+            transition: all 0.35s ease;
+            border: 1.5px solid transparent;
+        }
+        .search-box-container:focus-within {
+            background: #fff;
+            border-color: var(--red);
+            box-shadow: 0 0 0 4px rgba(220,38,38,0.08);
         }
 
-        .search-box-container:focus-within::after {
-            left: 0;
-            opacity: 1;
-            animation: lineRun 1.5s linear infinite;
+        /* ── Navbar blur on scroll ── */
+        nav {
+            transition: background 0.4s ease, box-shadow 0.4s ease, backdrop-filter 0.4s ease;
+        }
+        nav.scrolled {
+            background: rgba(255,255,255,0.82) !important;
+            backdrop-filter: blur(18px) saturate(1.5);
+            -webkit-backdrop-filter: blur(18px) saturate(1.5);
+            box-shadow: 0 4px 24px rgba(0,0,0,0.10);
         }
 
-        @keyframes lineRun {
-            0% { background-position: 100% 0%; }
-            100% { background-position: -100% 0%; }
+        /* ── Nav links ── */
+        nav a {
+            position: relative;
+            transition: color 0.25s;
+        }
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: -2px; left: 0;
+            width: 0; height: 2px;
+            background: var(--red);
+            border-radius: 2px;
+            transition: width 0.3s ease;
+        }
+        nav a:hover::after { width: 100%; }
+
+        /* ── Hero section ── */
+        #home .rounded-3xl {
+            background: linear-gradient(135deg, #f1f5f9 0%, #e9ecf1 100%);
+            box-shadow: var(--shadow-md);
+            transition: box-shadow 0.4s ease;
+        }
+
+        /* ── Category cards ── */
+        .cat-card {
+            transition: transform 0.38s cubic-bezier(.22,.68,0,1.2), box-shadow 0.38s ease;
+            will-change: transform;
+        }
+        .cat-card:hover {
+            transform: translateY(-8px) scale(1.03);
+            box-shadow: var(--shadow-lg);
+            z-index: 2;
+        }
+        .cat-card img {
+            transition: transform 0.55s cubic-bezier(.22,.68,0,1.2);
+        }
+        .cat-card:hover img { transform: scale(1.12); }
+
+        /* ── Product mini cards ── */
+        .product-card {
+            transition: transform 0.38s cubic-bezier(.22,.68,0,1.2), box-shadow 0.38s ease;
+            will-change: transform;
+        }
+        .product-card:hover {
+            transform: translateY(-8px) scale(1.03);
+            box-shadow: var(--shadow-lg);
+        }
+
+        /* ── Buttons ── */
+        button, .btn {
+            transition: transform 0.25s ease, box-shadow 0.25s ease, background 0.25s ease;
+        }
+        .btn-red, button[class*="bg-red"] {
+            transition: transform 0.25s ease, box-shadow 0.25s ease, background 0.25s ease;
+        }
+        button[class*="bg-red"]:hover, .btn-red:hover {
+            box-shadow: 0 0 22px rgba(220,38,38,0.55), 0 4px 16px rgba(220,38,38,0.3);
+            transform: translateY(-2px) scale(1.04);
+        }
+        button[class*="bg-gray-900"]:hover {
+            box-shadow: 0 0 18px rgba(17,24,39,0.4);
+        }
+
+        /* ── WhatsApp button glow ── */
+        a[href*="wa.me"] {
+            transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
+        }
+        a[href*="wa.me"]:hover {
+            transform: translateY(-3px) scale(1.04);
+            box-shadow: 0 0 22px rgba(34,197,94,0.5);
+        }
+
+        /* ── Offers section ── */
+        #offers .rounded-\[2rem\] {
+            background: linear-gradient(135deg, #dc2626 0%, #b91c1c 60%, #991b1b 100%);
+            box-shadow: 0 24px 64px rgba(220,38,38,0.38);
+            transition: box-shadow 0.4s ease;
+        }
+        #offers .rounded-\[2rem\]:hover {
+            box-shadow: 0 32px 80px rgba(220,38,38,0.48);
+        }
+
+        /* ── Contact icon containers ── */
+        .contact-icon {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .contact-icon:hover {
+            transform: scale(1.12) rotate(-4deg);
+            box-shadow: var(--shadow-md);
+        }
+
+        /* ── Map container ── */
+        .map-container {
+            transition: transform 0.4s ease, box-shadow 0.4s ease;
+        }
+        .map-container:hover {
+            transform: scale(1.01);
+            box-shadow: 0 30px 80px rgba(0,0,0,0.18);
+        }
+
+        /* ── Cart icon pulse ── */
+        .cart-badge {
+            animation: pulse-badge 2s ease-in-out infinite;
+        }
+        @keyframes pulse-badge {
+            0%,100% { transform: scale(1); }
+            50%      { transform: scale(1.25); }
+        }
+
+        /* ── Section headings underline ── */
+        .section-title {
+            position: relative;
+            display: inline-block;
+        }
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -6px; left: 0;
+            width: 60%; height: 3px;
+            background: var(--red);
+            border-radius: 2px;
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.6s ease;
+        }
+        .section-title.in-view::after { transform: scaleX(1); }
+
+        /* ── Footer ── */
+        footer {
+            background: linear-gradient(160deg, #111827 0%, #1f2937 100%);
+        }
+
+        /* ── Smooth color transition on body scroll ── */
+        body {
+            transition: background-color 0.5s ease;
+        }
+
+        /* ── Subtle grain overlay ── */
+        body::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            z-index: 9999;
+            pointer-events: none;
+            opacity: 0.02;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+            background-size: 128px;
+        }
+
+        /* ── Responsive tweaks ── */
+        @media (max-width: 768px) {
+            .gsap-reveal { transform: translateY(40px) scale(0.9); }
         }
     </style>
 </head>
@@ -79,19 +274,19 @@
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between items-center h-20">
                 <div class="flex-shrink-0">
-                    <a href="index.html" class="text-2xl font-black text-gray-800">
+                    <a href="index.html" class="text-2xl font-black text-gray-800 tracking-tight hover:text-gray-900 transition-colors">
                         JALSA <span class="text-red-600">Electronics</span>
                     </a>
                 </div>
                 <div class="hidden lg:flex items-center ml-10 space-x-6 text-sm font-semibold text-gray-600">
-                    <a href="#home" class="hover:text-red-600">Home</a>
-                    <a href="products.html" class="hover:text-red-600">Shop</a>
-                    <a href="#offers" class="hover:text-red-600">Offers</a>
-                    <a href="#contact" class="hover:text-red-600">Contact</a>
+                    <a href="#home" class="hover:text-red-600 py-1">Home</a>
+                    <a href="products.html" class="hover:text-red-600 py-1">Shop</a>
+                    <a href="#offers" class="hover:text-red-600 py-1">Offers</a>
+                    <a href="#contact" class="hover:text-red-600 py-1">Contact</a>
                 </div>
                 <div class="hidden md:flex flex-1 justify-center px-6">
                     <div class="search-box-container w-full max-w-lg">
-                        <svg class="w-5 h-5 ml-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <svg class="w-5 h-5 ml-4 text-gray-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
                         </svg>
                         <input type="text" id="productSearch" placeholder="Search appliances..." class="w-full px-3 py-2 text-sm text-gray-700 bg-transparent outline-none">
@@ -102,7 +297,7 @@
                         <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"></path>
                         </svg>
-                        <span class="absolute top-1 right-0 bg-red-600 text-white text-[10px] font-bold px-1.5 rounded-full">0</span>
+                        <span class="cart-badge absolute top-1 right-0 bg-red-600 text-white text-[10px] font-bold px-1.5 rounded-full">0</span>
                     </button>
                     <button type="button" class="bg-gray-900 text-white px-6 py-2 rounded-full text-sm font-bold hover:bg-red-600 transition">Login</button>
                 </div>
@@ -126,33 +321,33 @@
 
     <section class="container mx-auto px-2 md:px-6 py-16">
         <div class="grid grid-cols-3 gap-2 md:gap-6">
-            <a href="refrigerator.html" class="gsap-reveal group relative overflow-hidden bg-blue-500 rounded-xl p-3 h-44 md:h-80 block">
+            <a href="refrigerator.html" class="gsap-reveal cat-card group relative overflow-hidden bg-blue-500 rounded-xl p-3 h-44 md:h-80 block">
                 <h3 class="text-white text-xs md:text-2xl font-bold relative z-10">Refrigerator</h3>
                 <span class="absolute bottom-3 left-3 z-10 text-white font-bold text-[10px] md:text-base">View More →</span>
-                <img src="https://res.cloudinary.com/dwknktuzo/image/upload/v1771929721/Total_cooling_confidence__pb8hwu.jpg" class="absolute inset-0 h-full w-full object-cover opacity-80 group-hover:scale-110 transition-all">
+                <img src="https://res.cloudinary.com/dwknktuzo/image/upload/v1771929721/Total_cooling_confidence__pb8hwu.jpg" class="absolute inset-0 h-full w-full object-cover opacity-80">
             </a>
-            <a href="Washing Machine.html" class="gsap-reveal group relative overflow-hidden bg-yellow-400 rounded-xl p-3 h-44 md:h-80 block">
+            <a href="Washing Machine.html" class="gsap-reveal cat-card group relative overflow-hidden bg-yellow-400 rounded-xl p-3 h-44 md:h-80 block">
                 <h3 class="text-gray-900 text-xs md:text-2xl font-bold relative z-10">Washers</h3>
                 <span class="absolute bottom-3 left-3 z-10 text-gray-900 font-bold text-[10px] md:text-base">View More →</span>
-                <img src="https://res.cloudinary.com/dwknktuzo/image/upload/v1772005404/LG_Washing_Machine_smhow7.jpg" class="absolute inset-0 h-full w-full object-cover group-hover:scale-110 transition-all">
+                <img src="https://res.cloudinary.com/dwknktuzo/image/upload/v1772005404/LG_Washing_Machine_smhow7.jpg" class="absolute inset-0 h-full w-full object-cover">
             </a>
-            <a href="ac.html" target="_blank" class="gsap-reveal group relative overflow-hidden bg-red-500 rounded-xl p-3 h-44 md:h-80 block">
+            <a href="ac.html" target="_blank" class="gsap-reveal cat-card group relative overflow-hidden bg-red-500 rounded-xl p-3 h-44 md:h-80 block">
                 <h3 class="text-white text-xs md:text-2xl font-bold relative z-10">AC</h3>
                 <span class="absolute bottom-3 left-3 z-10 text-white font-bold text-[10px] md:text-base">View More →</span>
-                <img src="https://res.cloudinary.com/dwknktuzo/image/upload/v1771929721/Cool_Comfort_at_No_Cost__How_to_Get_a_Free_Air_Conditioner_rwatde.jpg" class="absolute inset-0 h-full w-full object-cover group-hover:scale-110 transition-all">
+                <img src="https://res.cloudinary.com/dwknktuzo/image/upload/v1771929721/Cool_Comfort_at_No_Cost__How_to_Get_a_Free_Air_Conditioner_rwatde.jpg" class="absolute inset-0 h-full w-full object-cover">
             </a>
-            <a href="coolers.html" class="product-card bg-white border rounded-xl p-3 h-32 md:h-64 flex flex-col justify-between shadow-sm">
+            <a href="coolers.html" class="gsap-reveal product-card bg-white border border-gray-100 rounded-xl p-3 h-32 md:h-64 flex flex-col justify-between shadow-sm">
                 <h3 class="text-xs md:text-xl font-bold uppercase">Coolers</h3>
                 <span class="text-red-600 font-bold text-[10px] md:text-base">View More →</span>
             </a>
-            <a href="cooktops.html" class="product-card bg-white border rounded-xl p-3 h-32 md:h-64 flex flex-col justify-between shadow-sm">
+            <a href="cooktops.html" class="gsap-reveal product-card bg-white border border-gray-100 rounded-xl p-3 h-32 md:h-64 flex flex-col justify-between shadow-sm">
                 <h3 class="text-xs md:text-xl font-bold uppercase">Cooktops</h3>
                 <span class="text-red-600 font-bold text-[10px] md:text-base">View More →</span>
             </a>
-            <a href="smarttv.html" class="group relative overflow-hidden bg-blue-600 rounded-xl p-3 h-32 md:h-64 block">
+            <a href="smarttv.html" class="gsap-reveal cat-card group relative overflow-hidden bg-blue-600 rounded-xl p-3 h-32 md:h-64 block">
                 <h3 class="text-white text-xs md:text-xl font-bold relative z-10">Smart TV</h3>
                 <span class="relative z-10 text-[10px] md:text-sm text-white bg-white/20 px-2 py-1 rounded mt-1 inline-block">View More →</span>
-                <img src="https://res.cloudinary.com/dwknktuzo/image/upload/v1772005404/ion_Communication_and_Kabir_Enterprises_lm3lyd.jpg" class="absolute inset-0 h-full w-full object-cover opacity-50 group-hover:scale-110 transition-all">
+                <img src="https://res.cloudinary.com/dwknktuzo/image/upload/v1772005404/ion_Communication_and_Kabir_Enterprises_lm3lyd.jpg" class="absolute inset-0 h-full w-full object-cover opacity-50">
             </a>
         </div>
     </section>
@@ -167,7 +362,7 @@
                 </div>
                 <p class="text-white/70 mt-4">15 Nov To 7 Dec - Don't miss out!</p>
             </div>
-            <img src="https://res.cloudinary.com/dwknktuzo/image/upload/v1771929721/download_1_xgve8t.jpg" class="w-64 md:w-96 rounded-2xl shadow-2xl mt-8 md:mt-0">
+            <img src="https://res.cloudinary.com/dwknktuzo/image/upload/v1771929721/download_1_xgve8t.jpg" class="w-64 md:w-96 rounded-2xl shadow-2xl mt-8 md:mt-0" style="transition: transform 0.4s ease; filter: drop-shadow(0 20px 40px rgba(0,0,0,0.3));">
         </div>
     </section>
 
@@ -181,7 +376,7 @@
                 
                 <div class="space-y-6">
                     <div class="flex items-start space-x-4">
-                        <div class="bg-red-100 p-3 rounded-lg text-red-600">
+                        <div class="contact-icon bg-red-100 p-3 rounded-lg text-red-600 flex-shrink-0">
                             <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
                         </div>
                         <div>
@@ -191,7 +386,7 @@
                     </div>
                     
                     <div class="flex items-start space-x-4">
-                        <div class="bg-blue-100 p-3 rounded-lg text-blue-600">
+                        <div class="contact-icon bg-blue-100 p-3 rounded-lg text-blue-600 flex-shrink-0">
                             <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path></svg>
                         </div>
                         <div>
@@ -206,7 +401,7 @@
                 </div>
             </div>
 
-            <div class="gsap-reveal h-[400px] md:h-[500px] bg-gray-200 rounded-3xl overflow-hidden shadow-2xl relative">
+            <div class="gsap-reveal map-container h-[400px] md:h-[500px] bg-gray-200 rounded-3xl overflow-hidden shadow-2xl relative">
                 <div class="absolute inset-0 bg-gray-300 flex items-center justify-center text-gray-500">
                     <p class="font-bold uppercase tracking-widest text-center px-4">Mumbai Showroom Map View</p>
                 </div>
@@ -222,42 +417,77 @@
     </footer>
 
     <script>
-        // 1. LENIS SMOOTH SCROLL — snappy & responsive config
+        // ─────────────────────────────────────────────
+        // 1. LENIS — ultra-smooth, premium scroll
+        // ─────────────────────────────────────────────
         const lenis = new Lenis({
-            duration: 0.8,                // shorter duration = faster scroll stop
-            easing: (t) => 1 - Math.pow(1 - t, 3), // cubic-out: quick start, satisfying end
+            duration: 1.1,
+            easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
             smooth: true,
-            direction: 'vertical'
+            direction: 'vertical',
+            gestureDirection: 'vertical',
+            smoothTouch: false,
+            touchMultiplier: 2,
         });
 
-        // Sync Lenis with GSAP ScrollTrigger
         lenis.on('scroll', ScrollTrigger.update);
 
-        // Use GSAP's ticker to drive Lenis (ensures perfect frame sync)
         gsap.ticker.add((time) => {
-            lenis.raf(time * 1000); // lenis expects ms
+            lenis.raf(time * 1000);
         });
-        gsap.ticker.lagSmoothing(0); // optional: disable lag smoothing for snappier feel
-
-        // 2. GSAP REVEAL ANIMATIONS (triggered on scroll)
+        gsap.ticker.lagSmoothing(0);
+        // ─────────────────────────────────────────────
+        // 2. GSAP SCROLL REVEAL — blur morphs, element never disappears
+        // ─────────────────────────────────────────────
         gsap.registerPlugin(ScrollTrigger);
 
         gsap.utils.toArray('.gsap-reveal').forEach((el) => {
-            gsap.to(el, {
-                scrollTrigger: {
-                    trigger: el,
-                    start: "top 85%",
-                    toggleActions: "play none none none",
-                    // faster markers? just play once
+            gsap.fromTo(el,
+                {
+                    opacity: 0.15,
+                    y: 50,
+                    scale: 0.88,
+                    filter: "blur(14px)"
                 },
-                opacity: 1,
-                y: 0,
-                duration: 1.0,              // slightly faster reveal
-                ease: "power2.out"           // snappy but smooth
-            });
+                {
+                    opacity: 1,
+                    y: 0,
+                    scale: 1,
+                    filter: "blur(0px)",
+                    duration: 1.05,
+                    ease: "power3.out",
+                    scrollTrigger: {
+                        trigger: el,
+                        start: "top 88%",
+                        end: "bottom 8%",
+                        toggleActions: "play none none reverse",
+                    }
+                }
+            );
         });
 
-        // 3. SVG MORPHING ON SCROLL (kept but synced via ScrollTrigger)
+        // ─────────────────────────────────────────────
+        // 3. NAVBAR — blur + shadow on scroll
+        // ─────────────────────────────────────────────
+        const nav = document.querySelector('nav');
+        ScrollTrigger.create({
+            start: "top -80",
+            onUpdate: (self) => {
+                if (self.scroller.scrollY > 60) {
+                    nav.classList.add('scrolled');
+                } else {
+                    nav.classList.remove('scrolled');
+                }
+            }
+        });
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 60) nav.classList.add('scrolled');
+            else nav.classList.remove('scrolled');
+        }, { passive: true });
+
+        // ─────────────────────────────────────────────
+        // 4. SVG MORPHING BACKGROUND on scroll
+        // ─────────────────────────────────────────────
         const morphPath = document.querySelector('#morph-path');
         const shape1 = "M0,1000 C0,1000 0,0 0,0 C0,0 1000,0 1000,0 C1000,0 1000,1000 1000,1000 Z";
         const shape2 = "M0,1000 C300,800 700,1200 1000,1000 C1000,600 1000,400 1000,0 C700,200 300,-200 0,0 C0,400 0,600 0,1000 Z";
@@ -267,13 +497,43 @@
                 trigger: "body",
                 start: "top top",
                 end: "bottom bottom",
-                scrub: 0.8                     // slightly faster scrub
+                scrub: 1.2
             },
             attr: { d: shape2 },
             ease: "none"
         });
 
-        // 4. TYPING EFFECT (unchanged)
+        // ─────────────────────────────────────────────
+        // 5. HERO — subtle parallax on scroll
+        // ─────────────────────────────────────────────
+        gsap.to('#home .floating', {
+            scrollTrigger: {
+                trigger: '#home',
+                start: 'top top',
+                end: 'bottom top',
+                scrub: 1.5
+            },
+            y: -40,
+            ease: 'none'
+        });
+
+        // ─────────────────────────────────────────────
+        // 6. OFFERS image — gentle parallax
+        // ─────────────────────────────────────────────
+        gsap.to('#offers img', {
+            scrollTrigger: {
+                trigger: '#offers',
+                start: 'top bottom',
+                end: 'bottom top',
+                scrub: 1.5
+            },
+            y: -20,
+            ease: 'none'
+        });
+
+        // ─────────────────────────────────────────────
+        // 7. TYPING EFFECT
+        // ─────────────────────────────────────────────
         const TypingEffect = {
             message: "Offers Coming Soon...",
             target: document.getElementById("typing-heading"),
@@ -297,10 +557,10 @@
             TypingEffect.play();
         });
 
-        // 5. Force a ScrollTrigger refresh after Lenis settles
-        window.addEventListener('load', () => {
+        // ScrollTrigger refresh only on resize (not load)
+        window.addEventListener('resize', () => {
             ScrollTrigger.refresh();
-        });
+        }, { passive: true });
     </script>
 </body>
 </html>
