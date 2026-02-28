@@ -12,6 +12,8 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
     <script src="https://cdn.jsdelivr.net/gh/studio-freight/lenis@1.0.19/bundled/lenis.min.js"></script>
 
+     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
     <style>
         *, *::before, *::after { box-sizing: border-box; }
 
@@ -360,6 +362,47 @@ input:-webkit-autofill:active {
         @media (max-width: 768px) {
             .gsap-reveal { transform: translateY(40px) scale(0.9); }
         }
+
+
+        /* CONTACT CSS */
+                /* Ensure button content stays in one row */
+        .fixed-submit-btn span {
+            white-space: nowrap !important;
+            display: inline-block !important;
+        }
+        .fixed-submit-btn i {
+            flex-shrink: 0 !important;
+        }
+
+                /* Make the container for helper+button side by side on desktop */
+        .helper-button-row {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+        }
+        @media (max-width: 640px) {
+            .helper-button-row {
+                flex-direction: column;
+                align-items: center;
+                gap: 0.75rem;
+            }
+        }
+
+
+        /* map css*/
+        /* Map container hover effect */
+.map-container {
+    transition: transform 0.4s ease, box-shadow 0.4s ease;
+    cursor: crosshair; /* Thoda premium feel ke liye */
+}
+
+.map-container:hover {
+    transform: scale(1.01);
+    box-shadow: 0 30px 80px rgba(0,0,0,0.18);
+}
+
     </style>
 </head>
 <body class="overflow-x-hidden">
@@ -426,31 +469,33 @@ input:-webkit-autofill:active {
                 <img src="https://res.cloudinary.com/dwknktuzo/image/upload/v1771929721/Total_cooling_confidence__pb8hwu.jpg" class="absolute inset-0 h-full w-full object-cover opacity-80">
             </a>
             <a href="Washing Machine.html" class="gsap-reveal cat-card group relative overflow-hidden bg-yellow-400 rounded-xl p-3 h-44 md:h-80 block">
-                <h3 class="text-gray-900 text-xs md:text-2xl font-bold relative z-10">Washers</h3>
-                <span class="absolute bottom-3 left-3 z-10 text-gray-900 font-bold text-[10px] md:text-base">View More →</span>
+                <h3 class="text-white text-xs md:text-2xl font-bold relative z-10">Washers</h3>
+                <span class="absolute bottom-3 left-3 z-10 text-white font-bold text-[10px] md:text-base">View More →</span>
                 <img src="https://res.cloudinary.com/dwknktuzo/image/upload/v1772005404/LG_Washing_Machine_smhow7.jpg" class="absolute inset-0 h-full w-full object-cover">
             </a>
-            <a href="ac.html" target="_blank" class="gsap-reveal cat-card group relative overflow-hidden bg-red-500 rounded-xl p-3 h-44 md:h-80 block">
+            <a href="AC.html" target="_blank" class="gsap-reveal cat-card group relative overflow-hidden bg-red-500 rounded-xl p-3 h-44 md:h-80 block">
                 <h3 class="text-white text-xs md:text-2xl font-bold relative z-10">AC</h3>
                 <span class="absolute bottom-3 left-3 z-10 text-white font-bold text-[10px] md:text-base">View More →</span>
                 <img src="https://res.cloudinary.com/dwknktuzo/image/upload/v1771929721/Cool_Comfort_at_No_Cost__How_to_Get_a_Free_Air_Conditioner_rwatde.jpg" class="absolute inset-0 h-full w-full object-cover">
             </a>
-            <a href="coolers.html" class="gsap-reveal product-card bg-white border border-gray-100 rounded-xl p-3 h-32 md:h-64 flex flex-col justify-between shadow-sm">
-                <h3 class="text-xs md:text-xl font-bold uppercase">Coolers</h3>
-                <span class="text-red-600 font-bold text-[10px] md:text-base">View More →</span>
+            <a href="Cooktop.html" class="gsap-reveal cat-card group relative overflow-hidden bg-yellow-400 rounded-xl p-3 h-44 md:h-80 block">
+                <h3 class="text-white text-xs md:text-2xl font-bold relative z-10">Cooktop</h3>
+                <span class="absolute bottom-3 left-3 z-10 text-white font-bold text-[10px] md:text-base">View More →</span>
+                <img src="https://res.cloudinary.com/dwknktuzo/image/upload/v1772192565/Ovens_Hobs___Induction_Hob_Cooker_2KW_Touch_Control_Stove_Cooktop_with_10_Power_Child_Lock_Up-to-3H_Timer___Living_and_Home_p5cwm0.jpg" class="absolute inset-0 h-full w-full object-cover">
             </a>
-            <a href="cooktops.html" class="gsap-reveal product-card bg-white border border-gray-100 rounded-xl p-3 h-32 md:h-64 flex flex-col justify-between shadow-sm">
-                <h3 class="text-xs md:text-xl font-bold uppercase">Cooktops</h3>
-                <span class="text-red-600 font-bold text-[10px] md:text-base">View More →</span>
+            <a href="Cooler.html" class="gsap-reveal cat-card group relative overflow-hidden bg-yellow-400 rounded-xl p-3 h-44 md:h-80 block">
+                <h3 class="text-white text-xs md:text-2xl font-bold relative z-10">Cooler</h3>
+                <span class="absolute bottom-3 left-3 z-10 text-white font-bold text-[10px] md:text-base">View More →</span>
+                <img src="https://res.cloudinary.com/dwknktuzo/image/upload/v1772192629/Summercool___Creative_ads___Household_Coolers___Coffee_and_Creative_rigqdz.jpg" class="absolute inset-0 h-full w-full object-cover">
             </a>
-            <a href="smarttv.html" class="gsap-reveal cat-card group relative overflow-hidden bg-blue-600 rounded-xl p-3 h-32 md:h-64 block">
-                <h3 class="text-white text-xs md:text-xl font-bold relative z-10">Smart TV</h3>
-                <span class="relative z-10 text-[10px] md:text-sm text-white bg-white/20 px-2 py-1 rounded mt-1 inline-block">View More →</span>
-                <img src="https://res.cloudinary.com/dwknktuzo/image/upload/v1772005404/ion_Communication_and_Kabir_Enterprises_lm3lyd.jpg" class="absolute inset-0 h-full w-full object-cover opacity-50">
+           <a href="Tv.html" class="gsap-reveal cat-card group relative overflow-hidden bg-yellow-400 rounded-xl p-3 h-44 md:h-80 block">
+                <h3 class="text-white text-xs md:text-2xl font-bold relative z-10">Smart Tv</h3>
+                <span class="absolute bottom-3 left-3 z-10 text-white font-bold text-[10px] md:text-base">View More →</span>
+                <img src="https://res.cloudinary.com/dwknktuzo/image/upload/v1772192413/The_FPD_Smart_TV_is_more_than_a_screen_it_s_a_seamless_part_of_your_living_space__With_a_minimalist_design_a_svbd1o.jpg" class="absolute inset-0 h-full w-full object-cover">
             </a>
         </div>
     </section>
-
+    
     <section id="offers" class="scroll-mt-24 container mx-auto px-6 py-12">
        <div class="gsap-reveal bg-red-600 rounded-[2rem] p-8 md:p-16 flex flex-col md:flex-row items-center justify-between text-white shadow-2xl hanging-card">
             <div class="md:w-2/3">
@@ -467,35 +512,35 @@ input:-webkit-autofill:active {
         </div>
     </section>
 
-    <section id="contact-section" class="container mx-auto px-6 py-12">
+     <section id="contact"  class="container mx-auto px-6 py-12">
         <!-- main container uses same classes as #home: container mx-auto px-6 py-12 -->
         <div class="bg-gray-100 rounded-3xl overflow-hidden flex flex-col lg:flex-row items-center p-8 md:p-16 fade-in lg:gap-16">
             <!-- left column: form and heading (similar to left text block) -->
             <div class="lg:w-3/5 w-full space-y-6">
                 <!-- badge -->
                 <span class="text-red-600 font-semibold tracking-widest uppercase text-sm flex items-center gap-1">
-                    <i class="fa-regular fa-pen-to-square"></i> 📬 get in touch
+                    <i class="fa-regular fa-pen-to-square"></i> 📬 Get In Touch
                 </span>
                 <!-- main heading (similar to "Smart Home Appliances") -->
                 <h2 class="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 leading-tight">Let's <span class="text-red-600">Connect</span></h2>
                 <!-- subheading / helps with line, styled like <p> under hero -->
                 <p class="text-gray-500 text-lg flex items-center gap-2 flex-wrap">
                     <i class="fa-regular fa-circle-check text-green-500"></i> 
-                    helps with: sales, service, repairs & support
+                    Helps With: Sales, Service, Repairs & Support
                 </p>
 
                 <!-- CONTACT FORM (compact, but using similar spacing as hero text) -->
-                <form id="contact" class="space-y-5 pt-4">
+                < <form id="contactForm" class="space-y-5 pt-4">
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                         <!-- name -->
                         <div>
-                            <label class="block text-sm font-medium text-gray-700 mb-1"><i class="fa-regular fa-user mr-1 text-red-500"></i> full name *</label>
+                            <label class="block text-sm font-medium text-gray-700 mb-1"><i class="fa-regular fa-user mr-1 text-red-500"></i> Full Name *</label>
                             <input type="text" placeholder="e.g. Priya Sharma" required
                                 class="w-full px-4 py-3 rounded-xl bg-white border border-gray-200 text-gray-800 placeholder-gray-400 focus:border-red-400 focus:ring-2 focus:ring-red-300 outline-none transition">
                         </div>
                         <!-- phone -->
                         <div>
-                            <label class="block text-sm font-medium text-gray-700 mb-1"><i class="fa-solid fa-phone mr-1 text-red-500"></i> phone *</label>
+                            <label class="block text-sm font-medium text-gray-700 mb-1"><i class="fa-solid fa-phone mr-1 text-red-500"></i> Phone *</label>
                             <input type="tel" placeholder="+91 98765 43210" required
                                 class="w-full px-4 py-3 rounded-xl bg-white border border-gray-200 text-gray-800 placeholder-gray-400 focus:border-red-400 focus:ring-2 focus:ring-red-300 outline-none transition">
                         </div>
@@ -504,24 +549,25 @@ input:-webkit-autofill:active {
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                         <!-- address -->
                         <div>
-                            <label class="block text-sm font-medium text-gray-700 mb-1"><i class="fa-solid fa-location-dot mr-1 text-red-500"></i> address</label>
+                            <label class="block text-sm font-medium text-gray-700 mb-1"><i class="fa-solid fa-location-dot mr-1 text-red-500"></i> Address</label>
                             <input type="text" placeholder="Street, city, pin code"
                                 class="w-full px-4 py-3 rounded-xl bg-white border border-gray-200 text-gray-800 placeholder-gray-400 focus:border-red-400 focus:ring-2 focus:ring-red-300 outline-none transition">
                         </div>
                         <!-- email -->
                         <div>
-                            <label class="block text-sm font-medium text-gray-700 mb-1"><i class="fa-regular fa-envelope mr-1 text-red-500"></i> email *</label>
+                            <label class="block text-sm font-medium text-gray-700 mb-1"><i class="fa-regular fa-envelope mr-1 text-red-500"></i> Email *</label>
                             <input type="email" placeholder="name@example.com" required
                                 class="w-full px-4 py-3 rounded-xl bg-white border border-gray-200 text-gray-800 placeholder-gray-400 focus:border-red-400 focus:ring-2 focus:ring-red-300 outline-none transition">
                         </div>
                     </div>
 
-                    <!-- helper text + submit button, aligned similar to hero button group -->
-                    <div class="flex flex-col sm:flex-row sm:items-center gap-4 pt-2">
-                        <p class="text-sm text-gray-400 flex items-center gap-1"><i class="fa-regular fa-lightbulb text-yellow-500"></i> we reply within 2-4h</p>
+                    <!-- helper text + submit button in ONE ROW (desktop) / stacked on mobile -->
+                    <div class="helper-button-row pt-2">
+                        <p class="text-sm text-gray-400 flex items-center gap-1"><i class="fa-regular fa-lightbulb text-yellow-500"></i> we reply within 2h</p>
                         <button type="submit" 
-                                class="bg-red-600 text-white px-8 py-3 rounded-full font-semibold shadow-md hover:scale-105 transition-transform inline-flex items-center gap-2 text-sm sm:text-base">
-                            <i class="fa-regular fa-paper-plane"></i> send message
+                                class="fixed-submit-btn bg-red-600 text-white px-8 py-3 rounded-full font-semibold shadow-md hover:scale-105 transition-transform inline-flex items-center justify-center gap-2 text-sm sm:text-base">
+                            <i class="fa-regular fa-paper-plane"></i> 
+                            <span>Send Message</span>
                         </button>
                     </div>
                 </form>
@@ -542,7 +588,7 @@ input:-webkit-autofill:active {
                             123 Jalsa Market, Andheri East,<br> Mumbai 400069, India
                         </p>
                         <p class="text-xs text-gray-400 mt-2 flex items-center gap-1">
-                            <i class="fa-regular fa-clock"></i> open Mon–Sat 10am–8pm
+                            <i class="fa-regular fa-clock"></i> Open Mon–Sat 10am–8pm
                         </p>
                     </div>
                 </div>
@@ -575,7 +621,9 @@ input:-webkit-autofill:active {
                 </div>
             </div>
         </div>
-  </section>
+    </section>
+
+
 
     <footer class="bg-gray-900 text-white pt-20 pb-10">
         <div class="container mx-auto px-6 text-center border-t border-gray-800 pt-8">
