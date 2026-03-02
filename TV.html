@@ -1,372 +1,208 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="light">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Premium Electronics E-commerce</title>
+    <meta name="description" content="JALSA ELECTRONICS - Smart TVs in Mumbai">
+    <title>Smart TVs | JALSA ELECTRONICS</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/studio-freight/lenis@1.0.19/bundled/lenis.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
-        /* --- GLOBAL DESIGN SYSTEM --- */
+
+        *, *::before, *::after { box-sizing: border-box; }
         :root {
-            --bg-color: #F8F9FA;
-            --card-bg: #FFFFFF;
-            --primary-blue: #0D6EFD;
-            --primary-blue-hover: #0056B3;
-            --text-dark: #212529;
-            --text-gray: #6C757D;
-            --badge-red: #E63946;
-            --border-light: #E9ECEF;
-            --shadow-subtle: 0 8px 24px rgba(0,0,0,0.04);
-            --shadow-hover: 0 12px 32px rgba(0,0,0,0.08);
-            --transition: all 0.3s ease-in-out;
-            --font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            --red:#dc2626; --red-dark:#b91c1c; --red-light:#fee2e2;
+            --shadow-sm:0 2px 8px rgba(0,0,0,0.06); --shadow-md:0 8px 30px rgba(0,0,0,0.10);
+            --shadow-lg:0 20px 60px rgba(0,0,0,0.14); --shadow-red:0 8px 32px rgba(220,38,38,0.28);
+            --bg-body:#f8fafc; --bg-card:#ffffff; --bg-section:#f1f5f9;
+            --bg-nav:#ffffff; --text-primary:#111827; --text-secondary:#6b7280;
+            --text-muted:#9ca3af; --border:#e5e7eb; --input-bg:#ffffff;
         }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: var(--font-family);
+        [data-theme="dark"] {
+            --bg-body:#0f172a; --bg-card:#1e293b; --bg-section:#1e293b;
+            --bg-nav:#0f172a; --text-primary:#f1f5f9; --text-secondary:#94a3b8;
+            --text-muted:#64748b; --border:#334155; --input-bg:#1e293b;
         }
+        html, body { max-width:100%; overflow-x:hidden; }
+        body { font-family:'Poppins',sans-serif; background-color:var(--bg-body); color:var(--text-primary); -webkit-font-smoothing:antialiased; overflow-x:hidden; transition:background-color 0.4s ease,color 0.4s ease; }
+        section { scroll-margin-top:80px; }
+        img { max-width:100%; height:auto; }
+        body::before { content:''; position:fixed; inset:0; z-index:9999; pointer-events:none; opacity:0.02;
+            background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+            background-size:128px; }
+        /* SEARCH */
+        .search-box-container { position:relative; background:var(--bg-section); border-radius:50px; overflow:hidden; height:42px; display:flex; align-items:center; transition:all 0.4s cubic-bezier(0.4,0,0.2,1); border:1px solid var(--border); }
+        .search-box-container:focus-within { background:var(--bg-card); box-shadow:0 0 15px rgba(255,153,51,0.2),0 0 30px rgba(18,136,7,0.1); transform:translateY(-1px); }
+        .search-box-container::after { content:''; position:absolute; bottom:0; left:-100%; width:100%; height:3px; background:linear-gradient(90deg,#FF9933,#fff,#128807,#FF9933); background-size:200% 100%; opacity:0; }
+        .search-box-container:focus-within::after { left:0; opacity:1; animation:lineRun 1.5s linear infinite; }
+        @keyframes lineRun { 0%{background-position:100% 0%} 100%{background-position:-100% 0%} }
+        #productSearch { color:var(--text-primary); background:transparent; }
+        #productSearch:focus { outline:none!important; border:none!important; box-shadow:none!important; }
+        #productSearch::placeholder { color:var(--text-muted); }
+        /* NAV */
+        nav { transition:background 0.4s ease,box-shadow 0.4s ease,backdrop-filter 0.4s ease; background:var(--bg-nav); }
+        nav.scrolled { background:rgba(255,255,255,0.85)!important; backdrop-filter:blur(18px) saturate(1.5); -webkit-backdrop-filter:blur(18px) saturate(1.5); box-shadow:0 4px 24px rgba(0,0,0,0.10); }
+        [data-theme="dark"] nav.scrolled { background:rgba(15,23,42,0.9)!important; }
+        nav a { position:relative; transition:color 0.25s; }
+        nav a::after { content:''; position:absolute; bottom:-2px; left:0; width:0; height:2px; background:var(--red); border-radius:2px; transition:width 0.3s ease; }
+        nav a:hover::after { width:100%; }
+        /* DARK TOGGLE */
+        #dark-toggle { position:relative; width:48px; height:26px; background:#e2e8f0; border-radius:999px; cursor:pointer; border:none; transition:background 0.3s; flex-shrink:0; }
+        [data-theme="dark"] #dark-toggle { background:#dc2626; }
+        #dark-toggle::after { content:''; position:absolute; top:3px; left:3px; width:20px; height:20px; background:#fff; border-radius:50%; transition:transform 0.3s ease; box-shadow:0 1px 4px rgba(0,0,0,0.25); }
+        [data-theme="dark"] #dark-toggle::after { transform:translateX(22px); }
+        /* CART */
+        .cart-badge { animation:pulse-badge 2s ease-in-out infinite; }
+        @keyframes pulse-badge { 0%,100%{transform:scale(1)} 50%{transform:scale(1.25)} }
+        /* MOBILE MENU */
+        #menu-btn .icon-close { display:none; }
+        #menu-btn.open .icon-menu { display:none; }
+        #menu-btn.open .icon-close { display:block; }
+        /* WHATSAPP FAB */
+        #whatsapp-fab { position:fixed; bottom:24px; right:24px; z-index:1000; width:58px; height:58px; background:#25d366; border-radius:50%; display:flex; align-items:center; justify-content:center; box-shadow:0 6px 24px rgba(37,211,102,0.5); cursor:pointer; transition:transform 0.3s ease,box-shadow 0.3s ease; border:none; text-decoration:none; }
+        #whatsapp-fab:hover { transform:translateY(-4px) scale(1.1); box-shadow:0 12px 32px rgba(37,211,102,0.65); }
+        #whatsapp-fab .wa-pulse { position:absolute; inset:-4px; border-radius:50%; background:rgba(37,211,102,0.3); animation:waPulse 2.2s ease-out infinite; }
+        @keyframes waPulse { 0%{transform:scale(1);opacity:0.7} 100%{transform:scale(1.7);opacity:0} }
+        #whatsapp-fab .wa-tooltip { position:absolute; right:68px; background:#111827; color:#fff; font-size:12px; font-weight:600; white-space:nowrap; padding:6px 12px; border-radius:8px; opacity:0; pointer-events:none; transition:opacity 0.25s ease; }
+        #whatsapp-fab:hover .wa-tooltip { opacity:1; }
+        @media (max-width:480px) { #whatsapp-fab { width:50px; height:50px; bottom:18px; right:18px; } }
+        /* SECTION TITLE */
+        .section-title { position:relative; display:inline-block; }
+        .section-title::after { content:''; position:absolute; bottom:-6px; left:0; width:60%; height:3px; background:var(--red); border-radius:2px; transform:scaleX(0); transform-origin:left; transition:transform 0.6s ease; }
+        .section-title.in-view::after { transform:scaleX(1); }
+        /* DARK MODE OVERRIDES */
+        [data-theme="dark"] .bg-gray-100  { background-color:var(--bg-section)!important; }
+        [data-theme="dark"] .bg-white     { background-color:var(--bg-card)!important; }
+        [data-theme="dark"] .bg-gray-50   { background-color:var(--bg-section)!important; }
+        [data-theme="dark"] .text-gray-900 { color:var(--text-primary)!important; }
+        [data-theme="dark"] .text-gray-800 { color:var(--text-primary)!important; }
+        [data-theme="dark"] .text-gray-700 { color:var(--text-secondary)!important; }
+        [data-theme="dark"] .text-gray-600 { color:var(--text-secondary)!important; }
+        [data-theme="dark"] .text-gray-500 { color:var(--text-muted)!important; }
+        [data-theme="dark"] .text-gray-400 { color:var(--text-muted)!important; }
+        [data-theme="dark"] .border-gray-100,[data-theme="dark"] .border-gray-200 { border-color:var(--border)!important; }
+        [data-theme="dark"] nav            { background:var(--bg-nav)!important; border-color:#1e293b!important; }
+        [data-theme="dark"] #mobile-menu  { background:var(--bg-nav)!important; border-color:#1e293b!important; }
+        [data-theme="dark"] .hover\:bg-gray-50:hover { background-color:#334155!important; }
+        [data-theme="dark"] input[type="text"],[data-theme="dark"] input[type="tel"],[data-theme="dark"] input[type="email"] { background-color:var(--bg-body)!important; color:var(--text-primary)!important; border-color:var(--border)!important; }
 
-        body {
-            background-color: var(--bg-color);
-            color: var(--text-dark);
-            padding: 40px 20px;
-        }
 
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-        }
+        /* CENTERED WRAPPER */
+        .page-wrapper { width:100%; max-width:1280px; margin:0 auto; padding:0 1.5rem; }
+        @media (min-width:640px)  { .page-wrapper { padding:0 2rem; } }
+        @media (min-width:1024px) { .page-wrapper { padding:0 3rem; } }
+        @media (min-width:1280px) { .page-wrapper { padding:0 4rem; } }
+        /* PAGE HERO - full width */
+        .page-hero { background:linear-gradient(135deg,#1f2937 0%,#111827 100%); color:#fff; padding:3.5rem 1.5rem; text-align:center; width:100%; }
+        .page-hero h1 { font-size:clamp(1.6rem,5vw,3rem); font-weight:900; text-transform:uppercase; letter-spacing:-.02em; }
+        .page-hero p  { color:#9ca3af; margin-top:.5rem; font-size:clamp(.85rem,2vw,1rem); }
+        /* SECTION TITLE */
+        h2.prod-section-title { font-size:clamp(1.15rem,3vw,1.6rem); font-weight:700; margin-bottom:1.5rem; padding-bottom:.75rem; border-bottom:2px solid var(--border); color:var(--text-primary); }
+        /* PRODUCT GRID */
+        .product-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(min(260px,100%),1fr)); gap:1.5rem; margin-bottom:3rem; width:100%; }
+        /* PRODUCT CARD */
+        .product-card { background:var(--bg-card); border-radius:1rem; padding:1.25rem; box-shadow:0 4px 16px rgba(0,0,0,0.05); transition:transform 0.3s cubic-bezier(.22,.68,0,1.2),box-shadow 0.3s ease; position:relative; display:flex; flex-direction:column; border:1px solid var(--border); }
+        .product-card:hover { transform:translateY(-6px); box-shadow:0 20px 48px rgba(0,0,0,0.10); }
+        .badge { position:absolute; top:14px; left:14px; background:#dc2626; color:#fff; font-size:11px; font-weight:700; padding:3px 9px; border-radius:4px; z-index:2; }
+        .wishlist-btn { position:absolute; top:12px; right:12px; background:transparent; border:none; font-size:20px; cursor:pointer; color:var(--text-secondary); transition:all 0.25s ease; z-index:2; }
+        .wishlist-btn:hover { color:#dc2626; transform:scale(1.2); }
+        .product-img-container { width:100%; height:190px; display:flex; align-items:center; justify-content:center; overflow:hidden; margin-bottom:1rem; border-radius:.5rem; background:var(--bg-section); }
+        .product-img-container img { max-height:100%; max-width:100%; object-fit:contain; transition:transform 0.4s ease; }
+        .product-card:hover .product-img-container img { transform:scale(1.07); }
+        .compare-checkbox { font-size:12px; color:var(--text-secondary); display:flex; align-items:center; gap:6px; margin-bottom:.6rem; }
+        .product-title { font-size:14px; font-weight:600; margin-bottom:.4rem; line-height:1.45; color:var(--text-primary); }
+        .product-rating { font-size:12px; color:#F5A623; margin-bottom:.6rem; }
+        .product-features { font-size:12px; color:var(--text-secondary); margin-bottom:.75rem; padding-left:1rem; flex-grow:1; line-height:1.65; }
+        .product-price-wrapper { margin-bottom:.75rem; }
+        .price-current { font-size:1.2rem; font-weight:700; color:#dc2626; }
+        .price-old { font-size:12px; color:var(--text-muted); text-decoration:line-through; margin-left:6px; }
+        .price-emi { font-size:11px; color:var(--text-secondary); margin-top:3px; }
+        .card-actions { display:flex; gap:8px; }
+        .btn { flex:1; padding:9px; border-radius:8px; font-size:13px; font-weight:600; cursor:pointer; text-align:center; transition:all 0.25s ease; }
+        .btn-outline { background:transparent; border:1.5px solid #dc2626; color:#dc2626; }
+        .btn-outline:hover { background:#fee2e2; }
+        .btn-solid { background:#dc2626; border:1.5px solid #dc2626; color:#fff; }
+        .btn-solid:hover { background:#b91c1c; transform:translateY(-1px); box-shadow:0 4px 14px rgba(220,38,38,0.4); }
+        [data-theme="dark"] .product-img-container { background:rgba(255,255,255,0.04); }
 
-        h2.section-title {
-            font-size: 24px;
-            font-weight: 700;
-            margin-bottom: 24px;
-            border-bottom: 2px solid var(--border-light);
-            padding-bottom: 12px;
-        }
-
-        /* --- 1. PRODUCT GRID --- */
-        .product-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 24px;
-            margin-bottom: 60px;
-        }
-
-        .product-card {
-            background: var(--card-bg);
-            border-radius: 16px;
-            padding: 20px;
-            box-shadow: var(--shadow-subtle);
-            transition: var(--transition);
-            position: relative;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .product-card:hover {
-            transform: translateY(-4px);
-            box-shadow: var(--shadow-hover);
-        }
-
-        .badge {
-            position: absolute;
-            top: 16px;
-            left: 16px;
-            background: var(--badge-red);
-            color: white;
-            font-size: 12px;
-            font-weight: 600;
-            padding: 4px 8px;
-            border-radius: 4px;
-            z-index: 2;
-        }
-
-        .wishlist-btn {
-            position: absolute;
-            top: 16px;
-            right: 16px;
-            background: transparent;
-            border: none;
-            font-size: 20px;
-            cursor: pointer;
-            z-index: 2;
-            color: var(--text-gray);
-            transition: var(--transition);
-        }
-
-        .wishlist-btn:hover { color: var(--badge-red); }
-
-        .product-img-container {
-            width: 100%;
-            height: 200px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            overflow: hidden;
-            margin-bottom: 16px;
-        }
-
-        .product-img-container img {
-            max-height: 100%;
-            max-width: 100%;
-            object-fit: contain;
-            transition: var(--transition);
-        }
-
-        .product-card:hover .product-img-container img {
-            transform: scale(1.05);
-        }
-
-        .compare-checkbox {
-            font-size: 12px;
-            color: var(--text-gray);
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            margin-bottom: 12px;
-        }
-
-        .product-title {
-            font-size: 16px;
-            font-weight: 600;
-            margin-bottom: 8px;
-            line-height: 1.4;
-        }
-
-        .product-rating {
-            font-size: 12px;
-            color: #F5A623;
-            margin-bottom: 12px;
-        }
-
-        .product-features {
-            font-size: 13px;
-            color: var(--text-gray);
-            margin-bottom: 16px;
-            padding-left: 16px;
-            flex-grow: 1;
-        }
-
-        .product-price-wrapper { margin-bottom: 16px; }
-
-        .price-current {
-            font-size: 20px;
-            font-weight: 700;
-            color: var(--primary-blue);
-        }
-
-        .price-old {
-            font-size: 13px;
-            color: var(--text-gray);
-            text-decoration: line-through;
-            margin-left: 8px;
-        }
-
-        .price-emi {
-            font-size: 12px;
-            color: var(--text-gray);
-            margin-top: 4px;
-        }
-
-        .card-actions {
-            display: flex;
-            gap: 8px;
-        }
-
-        .btn {
-            flex: 1;
-            padding: 10px;
-            border-radius: 8px;
-            font-size: 14px;
-            font-weight: 600;
-            cursor: pointer;
-            text-align: center;
-            transition: var(--transition);
-        }
-
-        .btn-outline {
-            background: transparent;
-            border: 1px solid var(--primary-blue);
-            color: var(--primary-blue);
-        }
-
-        .btn-outline:hover {
-            background: #e6f0ff;
-        }
-
-        .btn-solid {
-            background: var(--primary-blue);
-            border: 1px solid var(--primary-blue);
-            color: white;
-        }
-
-        .btn-solid:hover {
-            background: var(--primary-blue-hover);
-        }
-
-        /* --- 2. PRODUCT DETAIL PAGE (PDP) --- */
-        .pdp-container {
-            background: var(--card-bg);
-            border-radius: 16px;
-            padding: 40px;
-            box-shadow: var(--shadow-subtle);
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 40px;
-        }
-
-        /* Left: Gallery */
-        .pdp-gallery {
-            display: flex;
-            flex-direction: column;
-            gap: 16px;
-        }
-
-        .main-image {
-            width: 100%;
-            height: 400px;
-            border: 1px solid var(--border-light);
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            overflow: hidden;
-            position: relative;
-            cursor: crosshair;
-        }
-
-        .main-image img {
-            width: 80%;
-            height: 80%;
-            object-fit: contain;
-            transition: transform 0.1s ease-out;
-        }
-
-        .thumbnails {
-            display: flex;
-            gap: 12px;
-        }
-
-        .thumb {
-            width: 80px;
-            height: 80px;
-            border: 1px solid var(--border-light);
-            border-radius: 8px;
-            cursor: pointer;
-            padding: 8px;
-            transition: var(--transition);
-        }
-
-        .thumb:hover, .thumb.active {
-            border-color: var(--primary-blue);
-        }
-
-        /* Right: Buy Box */
-        .pdp-details {
-            display: flex;
-            flex-direction: column;
-        }
-
-        .brand {
-            font-size: 14px;
-            color: var(--text-gray);
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            margin-bottom: 8px;
-        }
-
-        .pdp-title {
-            font-size: 28px;
-            font-weight: 700;
-            line-height: 1.3;
-            margin-bottom: 12px;
-        }
-
-        .pdp-rating {
-            font-size: 14px;
-            margin-bottom: 24px;
-        }
-
-        .pdp-price-box {
-            background: #F8F9FA;
-            padding: 20px;
-            border-radius: 12px;
-            margin-bottom: 24px;
-        }
-
-        .pdp-price {
-            font-size: 32px;
-            font-weight: 700;
-            color: var(--text-dark);
-            margin-bottom: 4px;
-        }
-
-        .pdp-savings {
-            font-size: 14px;
-            color: #28A745;
-            font-weight: 600;
-        }
-
-        .stock-status {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            font-size: 14px;
-            font-weight: 600;
-            color: #28A745;
-            margin-bottom: 20px;
-        }
-
-        .stock-status::before {
-            content: '';
-            width: 10px;
-            height: 10px;
-            background: #28A745;
-            border-radius: 50%;
-        }
-
-        .pdp-actions {
-            display: flex;
-            gap: 16px;
-            margin-bottom: 32px;
-        }
-
-        .pdp-actions .btn {
-            padding: 16px;
-            font-size: 16px;
-        }
-
-        .offers-list {
-            list-style: none;
-            padding: 0;
-            font-size: 14px;
-            color: var(--text-dark);
-        }
-
-        .offers-list li {
-            margin-bottom: 12px;
-            display: flex;
-            align-items: flex-start;
-            gap: 8px;
-        }
-
-        /* Responsive */
-        @media (max-width: 900px) {
-            .pdp-container { grid-template-columns: 1fr; }
-            .main-image { height: 300px; }
-        }
     </style>
 </head>
-<body>
+<body class="overflow-x-hidden">
 
-    
+<a id="whatsapp-fab" href="https://wa.me/919876543210?text=Hi%20JALSA%20Electronics!%20I%20need%20help." target="_blank" rel="noopener" aria-label="Chat on WhatsApp">
+    <span class="wa-pulse"></span>
+    <span class="wa-tooltip">Chat with us &#x1F4AC;</span>
+    <i class="fa-brands fa-whatsapp text-white text-2xl relative z-10"></i>
+</a>
 
-<div class="container">
+<!-- NAVIGATION (exact copy from Index.html) -->
+<nav class="sticky top-0 z-50 border-b border-gray-100 w-full">
+    <div class="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8">
+        <div class="flex items-center h-16 sm:h-20 gap-2 sm:gap-3">
+            <div class="flex-shrink-0">
+                <a href="Index.html" class="text-base sm:text-xl lg:text-2xl font-black text-gray-800 tracking-tight hover:text-gray-900 transition-colors whitespace-nowrap">
+                    JALSA <span class="text-red-600">Electronics</span>
+                </a>
+            </div>
+            <div class="hidden lg:flex items-center ml-4 space-x-5 text-sm font-semibold text-gray-600 flex-shrink-0">
+                <a href="Index.html"    class="flex items-center gap-1 hover:text-red-600 py-1"><i data-lucide="home"         class="w-4 h-4"></i> Home</a>
+                <a href="products.html"  class="flex items-center gap-1 hover:text-red-600 py-1"><i data-lucide="shopping-bag" class="w-4 h-4"></i> Shop</a>
+                <a href="Index.html#offers"  class="flex items-center gap-1 hover:text-red-600 py-1"><i data-lucide="tag"          class="w-4 h-4"></i> Offers</a>
+                <a href="Index.html#products"    class="flex items-center gap-1 hover:text-red-600 py-1"><i data-lucide="zap"          class="w-4 h-4"></i> Featured</a>
+                <a href="Index.html#reviews"     class="flex items-center gap-1 hover:text-red-600 py-1"><i data-lucide="star"         class="w-4 h-4"></i> Reviews</a>
+                <a href="Index.html#contact" class="flex items-center gap-1 hover:text-red-600 py-1"><i data-lucide="phone"        class="w-4 h-4"></i> Contact</a>
+            </div>
+            <div class="flex flex-1 justify-center px-1 sm:px-4 min-w-0">
+                <div class="search-box-container w-full max-w-xs sm:max-w-sm md:max-w-md lg:max-w-lg flex items-center min-w-0">
+                    <i data-lucide="search" class="w-4 h-4 ml-3 text-gray-400 flex-shrink-0"></i>
+                    <input type="text" id="productSearch" placeholder="Search products…"
+                           class="w-full min-w-0 px-2 py-2 text-xs sm:text-sm bg-transparent outline-none truncate">
+                </div>
+            </div>
+            <div class="flex items-center gap-1 sm:gap-2 flex-shrink-0">
+                <button id="dark-toggle" aria-label="Toggle dark mode" title="Toggle dark mode"></button>
+                <button type="button" class="relative p-2 text-gray-600 hover:text-red-600 transition-colors">
+                    <i data-lucide="shopping-cart" class="w-5 h-5 sm:w-6 sm:h-6"></i>
+                    <span class="cart-badge absolute top-1 right-0 bg-red-600 text-white text-[9px] font-bold px-1 rounded-full leading-tight">0</span>
+                </button>
+                <button type="button" class="hidden sm:flex items-center gap-2 bg-gray-900 text-white px-4 py-2 rounded-full text-xs sm:text-sm font-bold hover:bg-red-600 transition whitespace-nowrap">
+                    <i data-lucide="user" class="w-4 h-4"></i> Login
+                </button>
+                <button id="menu-btn" class="lg:hidden p-2 text-gray-600" aria-label="Toggle menu">
+                    <i data-lucide="menu" class="w-6 h-6 sm:w-7 sm:h-7 icon-menu"></i>
+                    <i data-lucide="x"   class="w-6 h-6 sm:w-7 sm:h-7 icon-close"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+    <div id="mobile-menu" class="hidden lg:hidden w-full border-b border-gray-100 px-4 py-5 space-y-2 font-semibold text-gray-600 shadow-xl z-50">
+        <a href="Index.html"    class="mobile-nav-link flex items-center gap-3 hover:text-red-600 px-3 py-3 rounded-xl hover:bg-gray-50 transition-all text-base"><i data-lucide="home"         class="w-5 h-5"></i> Home</a>
+        <a href="products.html"  class="mobile-nav-link flex items-center gap-3 hover:text-red-600 px-3 py-3 rounded-xl hover:bg-gray-50 transition-all text-base"><i data-lucide="shopping-bag" class="w-5 h-5"></i> Shop</a>
+        <a href="Index.html#offers"  class="mobile-nav-link flex items-center gap-3 hover:text-red-600 px-3 py-3 rounded-xl hover:bg-gray-50 transition-all text-base"><i data-lucide="tag"          class="w-5 h-5"></i> Offers</a>
+        <a href="Index.html#products"    class="mobile-nav-link flex items-center gap-3 hover:text-red-600 px-3 py-3 rounded-xl hover:bg-gray-50 transition-all text-base"><i data-lucide="zap"          class="w-5 h-5"></i> Featured</a>
+        <a href="Index.html#reviews"     class="mobile-nav-link flex items-center gap-3 hover:text-red-600 px-3 py-3 rounded-xl hover:bg-gray-50 transition-all text-base"><i data-lucide="star"         class="w-5 h-5"></i> Reviews</a>
+        <a href="Index.html#contact" class="mobile-nav-link flex items-center gap-3 hover:text-red-600 px-3 py-3 rounded-xl hover:bg-gray-50 transition-all text-base"><i data-lucide="phone"        class="w-5 h-5"></i> Contact</a>
+        <hr class="border-gray-100 my-2">
+        <button type="button" class="w-full flex justify-center items-center gap-2 bg-gray-900 text-white py-3 rounded-xl text-sm font-bold active:scale-95 transition-transform">
+            <i data-lucide="user" class="w-5 h-5"></i> Login
+        </button>
+    </div>
+</nav>
+
+<div class="page-hero">
+    <h1>&#128250; Smart TVs</h1>
+    <p>Mumbai&rsquo;s best prices &mdash; all top brands in one place</p>
+</div>
+
+<div class="py-8 sm:py-12">
+<div class="page-wrapper">
     
-    <h2 class="section-title">Trending Appliances</h2>
+    <h2 class="prod-section-title section-title">Smart TVs &mdash; Trending Deals</h2>
     <div class="product-grid">
         
         <article class="product-card">
@@ -586,23 +422,106 @@
         
 
     </div>
+</div>
+
+<!-- FOOTER - full width -->
+<footer style="background:linear-gradient(160deg,#111827 0%,#1f2937 100%); width:100%;" class="text-white pt-14 pb-8">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10 pb-10 border-b border-gray-800">
+            <div class="sm:col-span-2 lg:col-span-1">
+                <h3 class="text-2xl font-black mb-3">JALSA <span class="text-red-500">Electronics</span></h3>
+                <p class="text-gray-400 text-sm leading-relaxed">Quality and trust since 1995. Mumbai's most trusted one-stop shop for premium home appliances.</p>
+                <div class="flex items-center gap-5 mt-5">
+                    <a href="#" class="text-gray-400 hover:text-pink-500 transition text-2xl"><i class="fa-brands fa-instagram"></i></a>
+                    <a href="#" class="text-gray-400 hover:text-blue-500 transition text-2xl"><i class="fa-brands fa-facebook"></i></a>
+                    <a href="https://wa.me/919876543210" target="_blank" rel="noopener" class="text-gray-400 hover:text-green-500 transition text-2xl"><i class="fa-brands fa-whatsapp"></i></a>
+                </div>
+            </div>
+            <div>
+                <h4 class="text-sm font-semibold uppercase tracking-wider text-gray-300 mb-5">Quick Links</h4>
+                <ul class="space-y-3 text-sm text-gray-400">
+                    <li><a href="Index.html"          class="hover:text-red-400 transition-colors">Home</a></li>
+                    <li><a href="products.html"        class="hover:text-red-400 transition-colors">Shop All</a></li>
+                    <li><a href="Index.html#offers"    class="hover:text-red-400 transition-colors">Offers</a></li>
+                    <li><a href="Index.html#reviews"   class="hover:text-red-400 transition-colors">Reviews</a></li>
+                    <li><a href="Contact.html"         class="hover:text-red-400 transition-colors">Contact</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="text-sm font-semibold uppercase tracking-wider text-gray-300 mb-5">Categories</h4>
+                <ul class="space-y-3 text-sm text-gray-400">
+                    <li><a href="Refrigerator.html"    class="hover:text-red-400 transition-colors">Refrigerators</a></li>
+                    <li><a href="Washing_Machine.html" class="hover:text-red-400 transition-colors">Washing Machines</a></li>
+                    <li><a href="AC.html"              class="hover:text-red-400 transition-colors">Air Conditioners</a></li>
+                    <li><a href="TV.html"              class="hover:text-red-400 transition-colors">Smart TVs</a></li>
+                    <li><a href="Cooler.html"          class="hover:text-red-400 transition-colors">Coolers</a></li>
+                    <li><a href="Cooktop.html"         class="hover:text-red-400 transition-colors">Cooktops</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="text-sm font-semibold uppercase tracking-wider text-gray-300 mb-5">Store Info</h4>
+                <ul class="space-y-3 text-sm text-gray-400">
+                    <li class="flex items-start gap-2"><i class="fa-solid fa-location-dot text-red-400 mt-0.5 flex-shrink-0"></i>123 Jalsa Market, Andheri East, Mumbai 400069</li>
+                    <li class="flex items-center gap-2"><i class="fa-solid fa-phone text-red-400 flex-shrink-0"></i>+91 98765 43210</li>
+                    <li class="flex items-center gap-2"><i class="fa-regular fa-envelope text-red-400 flex-shrink-0"></i>support@jalsa.in</li>
+                    <li class="flex items-center gap-2"><i class="fa-regular fa-clock text-red-400 flex-shrink-0"></i>Mon&ndash;Sat 10am&ndash;8pm</li>
+                </ul>
+            </div>
+        </div>
+        <div class="pt-6 text-center">
+            <p class="text-xs sm:text-sm text-gray-500">&copy; 2026 Jalsa Refrigerator &amp; Electronics. All rights reserved.</p>
+        </div>
+    </div>
+</footer>
 
 <script>
-    // --- JS LOGIC FOR PRODUCT DETAIL PAGE ---
-
-
-    // 2. Thumbnail Click Logic
-    const thumbnails = document.querySelectorAll('.thumb');
-    thumbnails.forEach(thumb => {
-        thumb.addEventListener('click', function() {
-            // Remove active class from all
-            thumbnails.forEach(t => t.classList.remove('active'));
-            // Add active class to clicked
-            this.classList.add('active');
-            // Change main image source
-            zoomImage.src = this.src;
-        });
+// DARK MODE
+const html = document.documentElement;
+const darkBtn = document.getElementById('dark-toggle');
+const saved = localStorage.getItem('jalsa-theme') || 'light';
+html.setAttribute('data-theme', saved);
+if (darkBtn) {
+    darkBtn.addEventListener('click', () => {
+        const next = html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+        html.setAttribute('data-theme', next);
+        localStorage.setItem('jalsa-theme', next);
     });
+}
+// SMOOTH SCROLL
+document.querySelectorAll('a[href^="#"]').forEach(link => {
+    link.addEventListener('click', function(e) {
+        const id = this.getAttribute('href');
+        if (id === '#' || id === '#home') { e.preventDefault(); window.scrollTo({ top:0, behavior:'smooth' }); return; }
+        const el = document.querySelector(id);
+        if (el) { e.preventDefault(); el.scrollIntoView({ behavior:'smooth', block:'start' }); }
+        const mMenu = document.getElementById('mobile-menu');
+        const mBtn  = document.getElementById('menu-btn');
+        if (mMenu && !mMenu.classList.contains('hidden')) { mMenu.classList.add('hidden'); mBtn && mBtn.classList.remove('open'); }
+    });
+});
+// NAVBAR SCROLL
+const navEl = document.querySelector('nav');
+window.addEventListener('scroll', () => { if(navEl) navEl.classList.toggle('scrolled', window.scrollY > 60); }, { passive:true });
+// LUCIDE + HAMBURGER
+(() => {
+    if (typeof lucide !== 'undefined') lucide.createIcons();
+    const mBtn  = document.getElementById('menu-btn');
+    const mMenu = document.getElementById('mobile-menu');
+    if (mBtn && mMenu) {
+        mBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            const isOpen = !mMenu.classList.contains('hidden');
+            mMenu.classList.toggle('hidden');
+            mBtn.classList.toggle('open', !isOpen);
+        });
+        document.addEventListener('click', (e) => {
+            if (!mBtn.contains(e.target) && !mMenu.contains(e.target)) { mMenu.classList.add('hidden'); mBtn.classList.remove('open'); }
+        });
+        mMenu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => { mMenu.classList.add('hidden'); mBtn.classList.remove('open'); }));
+    }
+    const stObs = new IntersectionObserver(entries => entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('in-view'); }), { threshold:0.3 });
+    document.querySelectorAll('.section-title').forEach(el => stObs.observe(el));
+})();
 </script>
 
 </body>

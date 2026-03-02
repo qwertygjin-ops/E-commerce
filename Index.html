@@ -1,849 +1,732 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="light">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="JALSA ELECTRONICS - Premium Home Appliances in Mumbai">
-    <title>JALSA ELECTRONICS | responsive & snappy scroll</title>
+    <title>JALSA ELECTRONICS | Premium Home Appliances</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;900&display=swap" rel="stylesheet">
-    
     <script src="https://unpkg.com/lucide@latest"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
     <script src="https://cdn.jsdelivr.net/gh/studio-freight/lenis@1.0.19/bundled/lenis.min.js"></script>
-
-     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 
     <style>
         *, *::before, *::after { box-sizing: border-box; }
 
         :root {
-            --red: #dc2626;
-            --red-dark: #b91c1c;
-            --red-light: #fee2e2;
+            --red: #dc2626; --red-dark: #b91c1c; --red-light: #fee2e2;
             --shadow-sm: 0 2px 8px rgba(0,0,0,0.06);
             --shadow-md: 0 8px 30px rgba(0,0,0,0.10);
             --shadow-lg: 0 20px 60px rgba(0,0,0,0.14);
             --shadow-red: 0 8px 32px rgba(220,38,38,0.28);
+            --bg-body: #f8fafc; --bg-card: #ffffff; --bg-section: #f1f5f9;
+            --bg-nav: #ffffff; --text-primary: #111827; --text-secondary: #6b7280;
+            --text-muted: #9ca3af; --border: #e5e7eb; --input-bg: #ffffff;
+        }
+        [data-theme="dark"] {
+            --bg-body: #0f172a; --bg-card: #1e293b; --bg-section: #1e293b;
+            --bg-nav: #0f172a; --text-primary: #f1f5f9; --text-secondary: #94a3b8;
+            --text-muted: #64748b; --border: #334155; --input-bg: #1e293b;
         }
 
-        @media (max-width: 768px) {
-    .hanging-card {
-        transform: rotate(0deg);
-        animation: none;
-    }
-}
-
+        html, body { max-width: 100%; overflow-x: hidden; }
         body {
             font-family: 'Poppins', sans-serif;
-            background-color: #f8fafc;
+            background-color: var(--bg-body);
+            color: var(--text-primary);
             -webkit-font-smoothing: antialiased;
             overflow-x: hidden;
+            transition: background-color 0.4s ease, color 0.4s ease;
         }
+        section { scroll-margin-top: 80px; }
+        img { max-width: 100%; height: auto; }
 
-
-section {
-    scroll-margin-top: 90px; /* Navbar ki height ke hisaab se gap */
-}
-
-        /* ── Scroll reveal ── */
-        .gsap-reveal {
-            opacity: 0.15;
-            transform: translateY(50px) scale(0.88);
-            filter: blur(14px);
-            will-change: transform, opacity, filter;
-        }
-
-        /* ── Morph BG ── */
-        #morph-bg {
-            position: fixed;
-            top: 0; left: 0;
-            width: 100%; height: 100%;
-            z-index: -1;
-            pointer-events: none;
-            opacity: 0.35;
-        }
-
-        /* ── Floating hero image ── */
-        .floating {
-            animation: floating 3.5s ease-in-out infinite;
-            border-radius: 10px;
-        }
-        @keyframes floating {
-            0%, 100% { transform: translateY(0px); }
-            50%       { transform: translateY(-15px); }
-        }
-
-        /* ── Premium gradient text ── */
-        .premium-gradient {
-            background: #ffffff;
-            -webkit-background-clip: text;
-            background-clip: text;
-            -webkit-text-fill-color: transparent;
-            color: transparent;
-        }
-
-        /* ── Typing ── */
-        .typing-box { min-height: 80px; display: flex; align-items: center; }
-        .cursor {
-            width: 3px; height: 1.2em;
-            background-color: white;
-            margin-left: 5px;
-            animation: blink 0.9s infinite;
-            flex-shrink: 0;
-        }
-        @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }
-
-        /* ── Search box ── */
-        /* Premium Running Line Style with GLOW */
-.search-box-container {
-    position: relative;
-    background: #f1f5f9;
-    border-radius: 50px;
-    overflow: hidden;
-    height: 42px;
-    display: flex;
-    align-items: center;
-    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-    border: 1px solid transparent; /* Smooth tra
-    will-change: transform, box-shadow;nsition ke liye */
-}
-
-/* Glow Effect on Focus */
-.search-box-container:focus-within {
-    background: #ffffff;
-    /* Red/Premium Glow - Aap color change kar sakte hain */
-    box-shadow: 0 0 15px rgba(255, 153, 51, 0.2), 0 0 30px rgba(18, 136, 7, 0.1);
-    transform: translateY(-1px); /* Halki lift up animation */
-}
-
-/* Running Line Border */
-.search-box-container::after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: -100%;
-    width: 100%;
-    height: 3px;
-    background: linear-gradient(90deg, #FF9933, #ffffff, #128807, #FF9933);
-    background-size: 200% 100%;
-    opacity: 0;
-}
-
-/* Show and Animate on Focus */
-.search-box-container:focus-within::after {
-    left: 0;
-    opacity: 1;
-    animation: lineRun 1.5s linear infinite;
-}
-
-@keyframes lineRun {
-    0% { background-position: 100% 0%; }
-    100% { background-position: -100% 0%; }
-}
-
-/* Browser ke sky blue/white autofill background ko hatane ke liye */
-input:-webkit-autofill,
-input:-webkit-autofill:hover, 
-input:-webkit-autofill:focus, 
-input:-webkit-autofill:active {
-    -webkit-box-shadow: 0 0 0 30px #f1f5f9 inset !important; /* Yahan wahi color dein jo aapke search bar ka original bg hai */
-    -webkit-text-fill-color: #374151 !important; /* Text ka color dark rakhne ke liye */
-    transition: background-color 5000s ease-in-out 0s;
-}
-
-/* Glow aur background fix focus par */
-#productSearch:focus {
-    outline: none !important;
-    border: none !important;
-    box-shadow: none !important;
-    background-color: transparent !important;
-}
-
-
-        /* ── Navbar blur on scroll ── */
-        nav {
-            transition: background 0.4s ease, box-shadow 0.4s ease, backdrop-filter 0.4s ease;
-        }
-        nav.scrolled {
-            background: rgba(255,255,255,0.82) !important;
-            backdrop-filter: blur(18px) saturate(1.5);
-            -webkit-backdrop-filter: blur(18px) saturate(1.5);
-            box-shadow: 0 4px 24px rgba(0,0,0,0.10);
-        }
-
-        /* ── Nav links ── */
-        nav a {
-            position: relative;
-            transition: color 0.25s;
-        }
-        nav a::after {
-            content: '';
-            position: absolute;
-            bottom: -2px; left: 0;
-            width: 0; height: 2px;
-            background: var(--red);
-            border-radius: 2px;
-            transition: width 0.3s ease;
-        }
-        nav a:hover::after { width: 100%; }
-
-        /* ── Hero section ── */
-        #home .rounded-3xl {
-            background: linear-gradient(135deg, #f1f5f9 0%, #e9ecf1 100%);
-            box-shadow: var(--shadow-md);
-            transition: box-shadow 0.4s ease;
-        }
-
-        /* ── Category cards ── */
-        .cat-card {
-            transition: transform 0.38s cubic-bezier(.22,.68,0,1.2), box-shadow 0.38s ease;
-            will-change: transform;
-        }
-        .cat-card:hover {
-            transform: translateY(-8px) scale(1.03);
-            box-shadow: var(--shadow-lg);
-            z-index: 2;
-        }
-        .cat-card img {
-            transition: transform 0.55s cubic-bezier(.22,.68,0,1.2);
-        }
-        .cat-card:hover img { transform: scale(1.12); }
-
-        /* ── Product mini cards ── */
-        .product-card {
-            transition: transform 0.38s cubic-bezier(.22,.68,0,1.2), box-shadow 0.38s ease;
-            will-change: transform;
-        }
-        .product-card:hover {
-            transform: translateY(-8px) scale(1.03);
-            box-shadow: var(--shadow-lg);
-        }
-
-        /* Hanging Effect Logic */
-        /* Poore Red Section ko latkane ke liye */
-.hanging-card {
-    transform-origin: top center; /* Center se latka hua look */
-    transform: rotate(-2deg); /* Halka sa left niche jhuka hua */
-    animation: cardSwing 5s ease-in-out infinite;
-    will-change: transform;
-}
-
-/* Hawa mein halka swing hone ke liye */
-@keyframes cardSwing {
-    0%, 100% { transform: rotate(-2deg); }
-    50% { transform: rotate(1deg); }
-}
-
-
-.hanging-effect {
-    /* Image ko left-top corner se "baandh" diya hai */
-    transform-origin: top left; 
-    /* Initial rotation: left side niche jhuka hua */
-    transform: rotate(-5deg); 
-    animation: swing 4s ease-in-out infinite;
-    transition: transform 0.4s ease;
-}
-
-/* Hawa mein halka hilne wala animation */
-@keyframes swing {
-    0%, 100% { transform: rotate(-5deg); }
-    50% { transform: rotate(-2deg); }
-}
-
-/* Hover karne par image sidhi ho jayegi */
-.hanging-effect:hover {
-    transform: rotate(0deg) scale(1.05);
-    animation-play-state: paused; /* Hover par hilna band */
-}
-
-        /* ── Buttons ── */
-        button, .btn {
-            transition: transform 0.25s ease, box-shadow 0.25s ease, background 0.25s ease;
-        }
-        .btn-red, button[class*="bg-red"] {
-            transition: transform 0.25s ease, box-shadow 0.25s ease, background 0.25s ease;
-        }
-        button[class*="bg-red"]:hover, .btn-red:hover {
-            box-shadow: 0 0 22px rgba(220,38,38,0.55), 0 4px 16px rgba(220,38,38,0.3);
-            transform: translateY(-2px) scale(1.04);
-        }
-        button[class*="bg-gray-900"]:hover {
-            box-shadow: 0 0 18px rgba(17,24,39,0.4);
-        }
-
-        /* ── WhatsApp button glow ── */
-        a[href*="wa.me"] {
-            transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
-        }
-        a[href*="wa.me"]:hover {
-            transform: translateY(-3px) scale(1.04);
-            box-shadow: 0 0 22px rgba(34,197,94,0.5);
-        }
-
-        /* ── Offers section ── */
-        #offers .rounded-\[2rem\] {
-            background: linear-gradient(135deg, #dc2626 0%, #b91c1c 60%, #991b1b 100%);
-            box-shadow: 0 24px 64px rgba(220,38,38,0.38);
-            transition: box-shadow 0.4s ease;
-        }
-        #offers .rounded-\[2rem\]:hover {
-            box-shadow: 0 32px 80px rgba(220,38,38,0.48);
-        }
-
-        /* ── Contact icon containers ── */
-        .contact-icon {
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-        .contact-icon:hover {
-            transform: scale(1.12) rotate(-4deg);
-            box-shadow: var(--shadow-md);
-        }
-
-        /* ── Map container ── */
-        .map-container {
-            transition: transform 0.4s ease, box-shadow 0.4s ease;
-        }
-        .map-container:hover {
-            transform: scale(1.01);
-            box-shadow: 0 30px 80px rgba(0,0,0,0.18);
-        }
-
-        /* ── Cart icon pulse ── */
-        .cart-badge {
-            animation: pulse-badge 2s ease-in-out infinite;
-        }
-        @keyframes pulse-badge {
-            0%,100% { transform: scale(1); }
-            50%      { transform: scale(1.25); }
-        }
-
-        /* ── Section headings underline ── */
-        .section-title {
-            position: relative;
-            display: inline-block;
-        }
-        .section-title::after {
-            content: '';
-            position: absolute;
-            bottom: -6px; left: 0;
-            width: 60%; height: 3px;
-            background: var(--red);
-            border-radius: 2px;
-            transform: scaleX(0);
-            transform-origin: left;
-            transition: transform 0.6s ease;
-        }
-        .section-title.in-view::after { transform: scaleX(1); }
-
-        /* ── Footer ── */
-        footer {
-            background: linear-gradient(160deg, #111827 0%, #1f2937 100%);
-        }
-
-        /* ── Smooth color transition on body scroll ── */
-        body {
-            transition: background-color 0.5s ease;
-        }
-
-        /* ── Subtle grain overlay ── */
         body::before {
-            content: '';
-            position: fixed;
-            inset: 0;
-            z-index: 9999;
-            pointer-events: none;
-            opacity: 0.02;
+            content: ''; position: fixed; inset: 0; z-index: 9999; pointer-events: none; opacity: 0.02;
             background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
             background-size: 128px;
         }
+        #morph-bg { position: fixed; top:0; left:0; width:100%; height:100%; z-index:-1; pointer-events:none; opacity:0.35; }
+        [data-theme="dark"] #morph-bg { opacity: 0.07; }
 
-        /* ── Responsive tweaks ── */
-        @media (max-width: 768px) {
-            .gsap-reveal { transform: translateY(40px) scale(0.9); }
+        .gsap-reveal { opacity:0.15; transform:translateY(50px) scale(0.88); filter:blur(14px); will-change:transform,opacity,filter; }
+        @media (max-width:768px) { .gsap-reveal { transform:translateY(40px) scale(0.9); } }
+
+        .floating { animation: floating 3.5s ease-in-out infinite; border-radius:10px; }
+        @keyframes floating { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-15px)} }
+
+        .premium-gradient { background:#fff; -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent; color:transparent; }
+
+        .typing-box { min-height:60px; display:flex; align-items:center; flex-wrap:nowrap; overflow:hidden; }
+        @media (min-width:768px) { .typing-box { min-height:80px; } }
+        .cursor { width:3px; height:1.2em; background:#fff; margin-left:5px; animation:blink 0.9s infinite; flex-shrink:0; }
+        @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }
+
+        /* SEARCH */
+        .search-box-container {
+            position:relative; background:var(--bg-section); border-radius:50px; overflow:hidden;
+            height:42px; display:flex; align-items:center;
+            transition:all 0.4s cubic-bezier(0.4,0,0.2,1); border:1px solid var(--border);
         }
-
-
-        /* CONTACT CSS */
-                /* Ensure button content stays in one row */
-        .fixed-submit-btn span {
-            white-space: nowrap !important;
-            display: inline-block !important;
+        .search-box-container:focus-within { background:var(--bg-card); box-shadow:0 0 15px rgba(255,153,51,0.2),0 0 30px rgba(18,136,7,0.1); transform:translateY(-1px); }
+        .search-box-container::after { content:''; position:absolute; bottom:0; left:-100%; width:100%; height:3px; background:linear-gradient(90deg,#FF9933,#fff,#128807,#FF9933); background-size:200% 100%; opacity:0; }
+        .search-box-container:focus-within::after { left:0; opacity:1; animation:lineRun 1.5s linear infinite; }
+        @keyframes lineRun { 0%{background-position:100% 0%} 100%{background-position:-100% 0%} }
+        input:-webkit-autofill,input:-webkit-autofill:hover,input:-webkit-autofill:focus,input:-webkit-autofill:active {
+            -webkit-box-shadow:0 0 0 30px var(--bg-section) inset !important;
+            -webkit-text-fill-color:var(--text-primary) !important;
+            transition:background-color 5000s ease-in-out 0s;
         }
-        .fixed-submit-btn i {
-            flex-shrink: 0 !important;
-        }
+        #productSearch { color:var(--text-primary); background:transparent; }
+        #productSearch:focus { outline:none!important; border:none!important; box-shadow:none!important; }
+        #productSearch::placeholder { color:var(--text-muted); }
 
-                /* Make the container for helper+button side by side on desktop */
-        .helper-button-row {
-            display: flex;
-            flex-direction: row;
-            align-items: center;
-            gap: 1.5rem;
-            flex-wrap: wrap;
-        }
-        @media (max-width: 640px) {
-            .helper-button-row {
-                flex-direction: column;
-                align-items: center;
-                gap: 0.75rem;
-            }
-        }
+        /* NAV */
+        nav { transition:background 0.4s ease,box-shadow 0.4s ease,backdrop-filter 0.4s ease; background:var(--bg-nav); }
+        nav.scrolled { background:rgba(255,255,255,0.85)!important; backdrop-filter:blur(18px) saturate(1.5); -webkit-backdrop-filter:blur(18px) saturate(1.5); box-shadow:0 4px 24px rgba(0,0,0,0.10); }
+        [data-theme="dark"] nav.scrolled { background:rgba(15,23,42,0.9)!important; }
+        nav a { position:relative; transition:color 0.25s; }
+        nav a::after { content:''; position:absolute; bottom:-2px; left:0; width:0; height:2px; background:var(--red); border-radius:2px; transition:width 0.3s ease; }
+        nav a:hover::after { width:100%; }
 
+        /* DARK TOGGLE */
+        #dark-toggle { position:relative; width:48px; height:26px; background:#e2e8f0; border-radius:999px; cursor:pointer; border:none; transition:background 0.3s; flex-shrink:0; }
+        [data-theme="dark"] #dark-toggle { background:#dc2626; }
+        #dark-toggle::after { content:''; position:absolute; top:3px; left:3px; width:20px; height:20px; background:#fff; border-radius:50%; transition:transform 0.3s ease; box-shadow:0 1px 4px rgba(0,0,0,0.25); }
+        [data-theme="dark"] #dark-toggle::after { transform:translateX(22px); }
 
-        /* map css*/
-        /* Map container hover effect */
-.map-container {
-    transition: transform 0.4s ease, box-shadow 0.4s ease;
-    cursor: crosshair; /* Thoda premium feel ke liye */
-}
+        /* CATEGORY CARDS */
+        .cat-card { transition:transform 0.38s cubic-bezier(.22,.68,0,1.2),box-shadow 0.38s ease; will-change:transform; }
+        .cat-card:hover { transform:translateY(-8px) scale(1.03); box-shadow:var(--shadow-lg); z-index:2; }
+        .cat-card img { transition:transform 0.55s cubic-bezier(.22,.68,0,1.2); }
+        .cat-card:hover img { transform:scale(1.12); }
 
-.map-container:hover {
-    transform: scale(1.01);
-    box-shadow: 0 30px 80px rgba(0,0,0,0.18);
-}
+        /* PRODUCT STRIP */
+        .products-strip { display:flex; gap:1rem; overflow-x:auto; scroll-snap-type:x mandatory; -webkit-overflow-scrolling:touch; padding-bottom:12px; scrollbar-width:thin; scrollbar-color:#dc2626 transparent; }
+        .products-strip::-webkit-scrollbar { height:4px; }
+        .products-strip::-webkit-scrollbar-track { background:transparent; }
+        .products-strip::-webkit-scrollbar-thumb { background:#dc2626; border-radius:999px; }
+        .product-card { flex:0 0 220px; scroll-snap-align:start; background:var(--bg-card); border-radius:1rem; overflow:hidden; box-shadow:var(--shadow-sm); border:1px solid var(--border); transition:transform 0.35s cubic-bezier(.22,.68,0,1.2),box-shadow 0.35s ease; will-change:transform; }
+        .product-card:hover { transform:translateY(-8px) scale(1.03); box-shadow:var(--shadow-lg); }
+        @media (min-width:640px)  { .product-card { flex:0 0 240px; } }
+        @media (min-width:1024px) { .product-card { flex:0 0 260px; } }
 
+        /* HANGING */
+        .hanging-card { transform-origin:top center; transform:rotate(-2deg); animation:cardSwing 5s ease-in-out infinite; will-change:transform; }
+        @keyframes cardSwing { 0%,100%{transform:rotate(-2deg)} 50%{transform:rotate(1deg)} }
+        @media (max-width:767px) { .hanging-card { transform:rotate(0deg)!important; animation:none!important; } }
+        .hanging-effect { transform-origin:top left; transform:rotate(-5deg); animation:swing 4s ease-in-out infinite; transition:transform 0.4s ease; }
+        @keyframes swing { 0%,100%{transform:rotate(-5deg)} 50%{transform:rotate(-2deg)} }
+        .hanging-effect:hover { transform:rotate(0deg) scale(1.05); animation-play-state:paused; }
+        @media (max-width:767px) { .hanging-effect { transform:rotate(0deg)!important; animation:none!important; } }
+
+        /* BUTTONS */
+        button, .btn { transition:transform 0.25s ease,box-shadow 0.25s ease,background 0.25s ease; }
+        button[class*="bg-red"]:hover,.btn-red:hover { box-shadow:0 0 22px rgba(220,38,38,0.55),0 4px 16px rgba(220,38,38,0.3); transform:translateY(-2px) scale(1.04); }
+
+        /* WHATSAPP FAB */
+        #whatsapp-fab { position:fixed; bottom:24px; right:24px; z-index:1000; width:58px; height:58px; background:#25d366; border-radius:50%; display:flex; align-items:center; justify-content:center; box-shadow:0 6px 24px rgba(37,211,102,0.5); cursor:pointer; transition:transform 0.3s ease,box-shadow 0.3s ease; border:none; text-decoration:none; }
+        #whatsapp-fab:hover { transform:translateY(-4px) scale(1.1); box-shadow:0 12px 32px rgba(37,211,102,0.65); }
+        #whatsapp-fab .wa-pulse { position:absolute; inset:-4px; border-radius:50%; background:rgba(37,211,102,0.3); animation:waPulse 2.2s ease-out infinite; }
+        @keyframes waPulse { 0%{transform:scale(1);opacity:0.7} 100%{transform:scale(1.7);opacity:0} }
+        #whatsapp-fab .wa-tooltip { position:absolute; right:68px; background:#111827; color:#fff; font-size:12px; font-weight:600; white-space:nowrap; padding:6px 12px; border-radius:8px; opacity:0; pointer-events:none; transition:opacity 0.25s ease; }
+        #whatsapp-fab:hover .wa-tooltip { opacity:1; }
+        @media (max-width:480px) { #whatsapp-fab { width:50px; height:50px; bottom:18px; right:18px; } }
+
+        /* TESTIMONIALS */
+        .testimonials-strip { display:flex; gap:1rem; overflow-x:auto; scroll-snap-type:x mandatory; -webkit-overflow-scrolling:touch; padding-bottom:12px; scrollbar-width:none; }
+        .testimonials-strip::-webkit-scrollbar { display:none; }
+        .testi-card { flex:0 0 min(300px,80vw); scroll-snap-align:start; background:var(--bg-card); border:1px solid var(--border); border-radius:1.25rem; padding:1.5rem; box-shadow:var(--shadow-sm); transition:transform 0.3s ease,box-shadow 0.3s ease; }
+        .testi-card:hover { transform:translateY(-6px); box-shadow:var(--shadow-md); }
+        .stars { color:#f59e0b; font-size:14px; letter-spacing:1px; }
+
+        /* CONTACT */
+        .contact-icon { transition:transform 0.3s ease,box-shadow 0.3s ease; }
+        .contact-icon:hover { transform:scale(1.12) rotate(-4deg); box-shadow:var(--shadow-md); }
+        .social-icon { transition:transform 0.25s ease; }
+        .social-icon:hover { transform:translateY(-4px) scale(1.12); }
+        .helper-button-row { display:flex; flex-direction:row; align-items:center; gap:1.5rem; flex-wrap:wrap; }
+        @media (max-width:640px) { .helper-button-row { flex-direction:column; align-items:center; gap:0.75rem; } }
+        .fixed-submit-btn span { white-space:nowrap!important; display:inline-block!important; }
+        .fixed-submit-btn i { flex-shrink:0!important; }
+
+        /* SECTION TITLE */
+        .section-title { position:relative; display:inline-block; }
+        .section-title::after { content:''; position:absolute; bottom:-6px; left:0; width:60%; height:3px; background:var(--red); border-radius:2px; transform:scaleX(0); transform-origin:left; transition:transform 0.6s ease; }
+        .section-title.in-view::after { transform:scaleX(1); }
+
+        /* CART */
+        .cart-badge { animation:pulse-badge 2s ease-in-out infinite; }
+        @keyframes pulse-badge { 0%,100%{transform:scale(1)} 50%{transform:scale(1.25)} }
+
+        footer { background:linear-gradient(160deg,#111827 0%,#1f2937 100%); }
+        a[href*="wa.me"] { transition:transform 0.3s ease,box-shadow 0.3s ease,background 0.3s ease; }
+        a[href*="wa.me"]:hover { transform:translateY(-3px) scale(1.04); box-shadow:0 0 22px rgba(34,197,94,0.5); }
+
+        /* FLUID TYPOGRAPHY */
+        .hero-heading    { font-size:clamp(1.6rem,7vw,5rem);   line-height:1.15; }
+        .offers-heading  { font-size:clamp(1.6rem,3vw,4rem); }
+        .contact-heading { font-size:clamp(1.5rem,5vw,3.75rem); }
+        .section-heading { font-size:clamp(1.3rem,4vw,2.5rem); }
+
+        /* MOBILE MENU ICON SWAP */
+        #menu-btn .icon-close { display:none; }
+        #menu-btn.open .icon-menu { display:none; }
+        #menu-btn.open .icon-close { display:block; }
+
+        /* SCROLL ARROW BUTTONS */
+        .scroll-arrow-btn { background:var(--bg-card); border:1px solid var(--border); border-radius:50%; width:36px; height:36px; display:flex; align-items:center; justify-content:center; cursor:pointer; transition:all 0.2s ease; flex-shrink:0; color:var(--text-primary); }
+        .scroll-arrow-btn:hover { background:var(--red); color:#fff; border-color:var(--red); }
+
+        /* DARK MODE OVERRIDES */
+        [data-theme="dark"] .bg-gray-100  { background-color:var(--bg-section)!important; }
+        [data-theme="dark"] .bg-white      { background-color:var(--bg-card)!important; }
+        [data-theme="dark"] .text-gray-900 { color:var(--text-primary)!important; }
+        [data-theme="dark"] .text-gray-700 { color:var(--text-secondary)!important; }
+        [data-theme="dark"] .text-gray-600 { color:var(--text-secondary)!important; }
+        [data-theme="dark"] .text-gray-500 { color:var(--text-muted)!important; }
+        [data-theme="dark"] .text-gray-400 { color:var(--text-muted)!important; }
+        [data-theme="dark"] .border-gray-100,
+        [data-theme="dark"] .border-gray-200 { border-color:var(--border)!important; }
+        [data-theme="dark"] input[type="text"],
+        [data-theme="dark"] input[type="tel"],
+        [data-theme="dark"] input[type="email"] { background-color:var(--bg-body)!important; color:var(--text-primary)!important; border-color:var(--border)!important; }
+        [data-theme="dark"] nav            { background:var(--bg-nav)!important; border-color:#1e293b!important; }
+        [data-theme="dark"] #mobile-menu   { background:var(--bg-nav)!important; border-color:#1e293b!important; }
+        [data-theme="dark"] .hover\:bg-gray-50:hover { background-color:#334155!important; }
+
+        @media (max-width:399px) { .search-box-container{height:36px;} #productSearch{font-size:11px;padding-left:6px;} }
     </style>
 </head>
 <body class="overflow-x-hidden">
 
-    <svg id="morph-bg" viewBox="0 0 1000 1000" preserveAspectRatio="none">
-        <path id="morph-path" fill="#fee2e2" d="M0,1000 C0,1000 0,0 0,0 C0,0 1000,0 1000,0 C1000,0 1000,1000 1000,1000 Z"></path>
-    </svg>
+<svg id="morph-bg" viewBox="0 0 1000 1000" preserveAspectRatio="none">
+    <path id="morph-path" fill="#fee2e2" d="M0,1000 C0,1000 0,0 0,0 C0,0 1000,0 1000,0 C1000,0 1000,1000 1000,1000 Z"></path>
+</svg>
 
+<!-- ════ WHATSAPP FLOATING BUTTON ════ -->
+<a id="whatsapp-fab" href="https://wa.me/919876543210?text=Hi%20JALSA%20Electronics!%20I%20need%20help." target="_blank" rel="noopener" aria-label="Chat on WhatsApp">
+    <span class="wa-pulse"></span>
+    <span class="wa-tooltip">Chat with us 💬</span>
+    <i class="fa-brands fa-whatsapp text-white text-2xl relative z-10"></i>
+</a>
 
-    <nav class="sticky top-0 z-50 bg-white shadow-sm border-b border-gray-100">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="flex justify-between items-center h-20 gap-2">
+<!-- ════ NAVIGATION ════ -->
+<nav class="sticky top-0 z-50 border-b border-gray-100 w-full">
+    <div class="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8">
+        <div class="flex items-center h-16 sm:h-20 gap-2 sm:gap-3">
+
             <div class="flex-shrink-0">
-                <a href="index.html" class="text-xl sm:text-2xl font-black text-gray-800 tracking-tight hover:text-gray-900 transition-colors whitespace-nowrap">
+                <a href="#home" class="text-base sm:text-xl lg:text-2xl font-black text-gray-800 tracking-tight hover:text-gray-900 transition-colors whitespace-nowrap">
                     JALSA <span class="text-red-600">Electronics</span>
                 </a>
             </div>
 
-            <div class="hidden lg:flex items-center ml-4 space-x-6 text-sm font-semibold text-gray-600">
-                <a href="#home" class="flex items-center gap-1 hover:text-red-600 py-1"><i data-lucide="home" class="w-4 h-4"></i> Home</a>
+            <div class="hidden lg:flex items-center ml-4 space-x-5 text-sm font-semibold text-gray-600 flex-shrink-0">
+                <a href="#home"      class="flex items-center gap-1 hover:text-red-600 py-1"><i data-lucide="home"         class="w-4 h-4"></i> Home</a>
                 <a href="products.html" class="flex items-center gap-1 hover:text-red-600 py-1"><i data-lucide="shopping-bag" class="w-4 h-4"></i> Shop</a>
-                <a href="Index.html#offers" class="flex items-center gap-1 hover:text-red-600 py-1"><i data-lucide="tag" class="w-4 h-4"></i> Offers</a>
-                <a href="#contact" class="flex items-center gap-1 hover:text-red-600 py-1"><i data-lucide="phone" class="w-4 h-4"></i> Contact</a>
+                <a href="#offers"    class="flex items-center gap-1 hover:text-red-600 py-1"><i data-lucide="tag"          class="w-4 h-4"></i> Offers</a>
+                <a href="#reviews"   class="flex items-center gap-1 hover:text-red-600 py-1"><i data-lucide="star"         class="w-4 h-4"></i> Reviews</a>
+                <a href="#contact"   class="flex items-center gap-1 hover:text-red-600 py-1"><i data-lucide="phone"        class="w-4 h-4"></i> Contact</a>
             </div>
 
-            <div class="flex flex-1 justify-center px-2 sm:px-6 min-w-[140px]">
-                <div class="search-box-container w-full max-w-lg flex items-center bg-gray-100 rounded-lg">
-                    <i data-lucide="search" class="w-5 h-5 ml-4 text-gray-400 flex-shrink-0"></i>
-                    <input type="text" id="productSearch" placeholder="Search..." class="w-full px-3 py-2 text-sm text-gray-700 bg-transparent outline-none">
+            <div class="flex flex-1 justify-center px-1 sm:px-4 min-w-0">
+                <div class="search-box-container w-full max-w-xs sm:max-w-sm md:max-w-md lg:max-w-lg flex items-center min-w-0">
+                    <i data-lucide="search" class="w-4 h-4 ml-3 text-gray-400 flex-shrink-0"></i>
+                    <input type="text" id="productSearch" placeholder="Search products…"
+                           class="w-full min-w-0 px-2 py-2 text-xs sm:text-sm bg-transparent outline-none truncate">
                 </div>
             </div>
 
-            <div class="flex items-center space-x-2 sm:space-x-4">
+            <div class="flex items-center gap-1 sm:gap-2 flex-shrink-0">
+                <button id="dark-toggle" aria-label="Toggle dark mode" title="Toggle dark mode"></button>
+
                 <button type="button" class="relative p-2 text-gray-600 hover:text-red-600 transition-colors">
-                    <i data-lucide="shopping-cart" class="w-6 h-6 sm:w-7 sm:h-7"></i>
-                    <span class="cart-badge absolute top-1 right-0 bg-red-600 text-white text-[10px] font-bold px-1.5 rounded-full">0</span>
+                    <i data-lucide="shopping-cart" class="w-5 h-5 sm:w-6 sm:h-6"></i>
+                    <span class="cart-badge absolute top-1 right-0 bg-red-600 text-white text-[9px] font-bold px-1 rounded-full leading-tight">0</span>
                 </button>
-                <button type="button" class="hidden sm:flex items-center gap-2 bg-gray-900 text-white px-6 py-2 rounded-full text-sm font-bold hover:bg-red-600 transition">
+
+                <button type="button" class="hidden sm:flex items-center gap-2 bg-gray-900 text-white px-4 py-2 rounded-full text-xs sm:text-sm font-bold hover:bg-red-600 transition whitespace-nowrap">
                     <i data-lucide="user" class="w-4 h-4"></i> Login
                 </button>
-                
-                <button id="menu-btn" class="lg:hidden p-2 text-gray-600">
-                    <i data-lucide="menu" class="w-7 h-7"></i>
+
+                <button id="menu-btn" class="lg:hidden p-2 text-gray-600" aria-label="Toggle menu">
+                    <i data-lucide="menu" class="w-6 h-6 sm:w-7 sm:h-7 icon-menu"></i>
+                    <i data-lucide="x"   class="w-6 h-6 sm:w-7 sm:h-7 icon-close"></i>
                 </button>
             </div>
         </div>
     </div>
 
-    <div id="mobile-menu" class="hidden lg:hidden absolute top-20 left-0 w-full bg-white border-b border-gray-100 px-4 py-6 space-y-4 font-semibold text-gray-600 shadow-xl z-50">
-    <a href="#home" class="flex items-center gap-3 hover:text-red-600 p-2 rounded-lg hover:bg-gray-50 transition-all">
-        <i data-lucide="home" class="w-5 h-5"></i> Home
-    </a>
-    <a href="products.html" class="flex items-center gap-3 hover:text-red-600 p-2 rounded-lg hover:bg-gray-50 transition-all">
-        <i data-lucide="shopping-bag" class="w-5 h-5"></i> Shop
-    </a>
-    <a href="Index.html#offers" class="flex items-center gap-3 hover:text-red-600 p-2 rounded-lg hover:bg-gray-50 transition-all">
-        <i data-lucide="tag" class="w-5 h-5"></i> Offers
-    </a>
-    <a href="#contact" class="flex items-center gap-3 hover:text-red-600 p-2 rounded-lg hover:bg-gray-50 transition-all">
-        <i data-lucide="phone" class="w-5 h-5"></i> Contact
-    </a>
-    <hr class="border-gray-100">
-    <button type="button" class="w-full flex justify-center items-center gap-2 bg-gray-900 text-white py-3 rounded-xl text-sm font-bold active:scale-95 transition-transform">
-        <i data-lucide="user" class="w-5 h-5"></i> Login
-    </button>
-</div>
+    <div id="mobile-menu" class="hidden lg:hidden w-full border-b border-gray-100 px-4 py-5 space-y-2 font-semibold text-gray-600 shadow-xl z-50">
+        <a href="#home"      class="mobile-nav-link flex items-center gap-3 hover:text-red-600 px-3 py-3 rounded-xl hover:bg-gray-50 transition-all text-base"><i data-lucide="home"         class="w-5 h-5"></i> Home</a>
+        <a href="products.html" class="mobile-nav-link flex items-center gap-3 hover:text-red-600 px-3 py-3 rounded-xl hover:bg-gray-50 transition-all text-base"><i data-lucide="shopping-bag" class="w-5 h-5"></i> Shop</a>
+        <a href="#offers"    class="mobile-nav-link flex items-center gap-3 hover:text-red-600 px-3 py-3 rounded-xl hover:bg-gray-50 transition-all text-base"><i data-lucide="tag"          class="w-5 h-5"></i> Offers</a>
+        <a href="#reviews"   class="mobile-nav-link flex items-center gap-3 hover:text-red-600 px-3 py-3 rounded-xl hover:bg-gray-50 transition-all text-base"><i data-lucide="star"         class="w-5 h-5"></i> Reviews</a>
+        <a href="#contact"   class="mobile-nav-link flex items-center gap-3 hover:text-red-600 px-3 py-3 rounded-xl hover:bg-gray-50 transition-all text-base"><i data-lucide="phone"        class="w-5 h-5"></i> Contact</a>
+        <hr class="border-gray-100 my-2">
+        <button type="button" class="w-full flex justify-center items-center gap-2 bg-gray-900 text-white py-3 rounded-xl text-sm font-bold active:scale-95 transition-transform">
+            <i data-lucide="user" class="w-5 h-5"></i> Login
+        </button>
+    </div>
 </nav>
 
-    <section id="home" class="container mx-auto px-6 py-12">
-        <div class="bg-gray-100 rounded-3xl overflow-hidden flex flex-col md:flex-row items-center p-8 md:p-16 min-h-[500px]">
-            <div class="md:w-1/2 space-y-6">
-                <span class="gsap-reveal text-red-600 font-semibold tracking-widest uppercase text-sm block">Premium Electronics</span>
-                <h1 class="gsap-reveal text-5xl md:text-7xl font-bold text-gray-900 leading-tight">Smart Home <br> Appliances</h1>
-                <p class="gsap-reveal text-gray-500 text-lg">Upgrade your lifestyle with Jalsa.</p>
-                <button class="gsap-reveal bg-red-600 text-white px-10 py-4 rounded-full font-bold shadow-lg hover:scale-105 transition-transform">Shop Now</button>
+<!-- ════ HERO ════ -->
+<section id="home" class="w-full px-3 sm:px-6 py-8 sm:py-12">
+    <div class="max-w-7xl mx-auto">
+        <div class="bg-gray-100 rounded-2xl sm:rounded-3xl overflow-hidden flex flex-col md:flex-row items-center p-5 sm:p-8 md:p-12 lg:p-16 min-h-[380px] sm:min-h-[480px]">
+            <div class="md:w-1/2 w-full space-y-4 sm:space-y-6 text-center md:text-left">
+                <span class="gsap-reveal text-red-600 font-semibold tracking-widest uppercase text-xs sm:text-sm block">Premium Electronics</span>
+                <h1 class="gsap-reveal hero-heading font-bold text-gray-900 leading-tight">Smart Home <br>Appliances</h1>
+                <p class="gsap-reveal text-gray-500 text-sm sm:text-lg">Upgrade your lifestyle with Jalsa.</p>
+                <div class="gsap-reveal flex flex-wrap gap-3 justify-center md:justify-start">
+                    <a href="#products" class="bg-red-600 text-white px-6 sm:px-10 py-3 sm:py-4 rounded-full font-bold shadow-lg hover:scale-105 transition-transform text-sm sm:text-base">Shop Now</a>
+                    <a href="#contact"  class="border-2 border-gray-300 text-gray-700 px-6 sm:px-8 py-3 sm:py-4 rounded-full font-bold hover:border-red-600 hover:text-red-600 transition text-sm sm:text-base">Contact Us</a>
+                </div>
             </div>
-            <div class="md:w-1/2 mt-12 md:mt-0 flex justify-center gsap-reveal">
-                <img src="https://res.cloudinary.com/dwknktuzo/image/upload/v1771929721/download_1_xgve8t.jpg" alt="Home Appliances" class="w-4/5 floating drop-shadow-2xl">
+            <div class="md:w-1/2 w-full mt-8 md:mt-0 flex justify-center gsap-reveal">
+                <img src="https://res.cloudinary.com/dwknktuzo/image/upload/v1771929721/download_1_xgve8t.jpg"
+                     alt="Home Appliances" class="w-3/4 sm:w-4/5 max-w-full h-auto floating drop-shadow-2xl">
             </div>
         </div>
-    </section>
+    </div>
+</section>
 
-    <section class="container mx-auto px-2 md:px-6 py-16">
-        <div class="grid grid-cols-3 gap-2 md:gap-6">
-            <a href="refrigerator.html" class="gsap-reveal cat-card group relative overflow-hidden bg-blue-500 rounded-xl p-3 h-44 md:h-80 block">
-                <h3 class="text-white text-xs md:text-2xl font-bold relative z-10">Refrigerator</h3>
-                <span class="absolute bottom-3 left-3 z-10 text-white font-bold text-[10px] md:text-base">View More →</span>
-                <img src="https://res.cloudinary.com/dwknktuzo/image/upload/v1771929721/Total_cooling_confidence__pb8hwu.jpg" class="absolute inset-0 h-full w-full object-cover opacity-80">
-            </a>
-            <a href="Washing Machine.html" class="gsap-reveal cat-card group relative overflow-hidden bg-yellow-400 rounded-xl p-3 h-44 md:h-80 block">
-                <h3 class="text-white text-xs md:text-2xl font-bold relative z-10">Washers</h3>
-                <span class="absolute bottom-3 left-3 z-10 text-white font-bold text-[10px] md:text-base">View More →</span>
-                <img src="https://res.cloudinary.com/dwknktuzo/image/upload/v1772005404/LG_Washing_Machine_smhow7.jpg" class="absolute inset-0 h-full w-full object-cover">
-            </a>
-            <a href="AC.html" target="_blank" class="gsap-reveal cat-card group relative overflow-hidden bg-red-500 rounded-xl p-3 h-44 md:h-80 block">
-                <h3 class="text-white text-xs md:text-2xl font-bold relative z-10">AC</h3>
-                <span class="absolute bottom-3 left-3 z-10 text-white font-bold text-[10px] md:text-base">View More →</span>
-                <img src="https://res.cloudinary.com/dwknktuzo/image/upload/v1771929721/Cool_Comfort_at_No_Cost__How_to_Get_a_Free_Air_Conditioner_rwatde.jpg" class="absolute inset-0 h-full w-full object-cover">
-            </a>
-            <a href="Cooktop.html" class="gsap-reveal cat-card group relative overflow-hidden bg-yellow-400 rounded-xl p-3 h-44 md:h-80 block">
-                <h3 class="text-white text-xs md:text-2xl font-bold relative z-10">Cooktop</h3>
-                <span class="absolute bottom-3 left-3 z-10 text-white font-bold text-[10px] md:text-base">View More →</span>
-                <img src="https://res.cloudinary.com/dwknktuzo/image/upload/v1772192565/Ovens_Hobs___Induction_Hob_Cooker_2KW_Touch_Control_Stove_Cooktop_with_10_Power_Child_Lock_Up-to-3H_Timer___Living_and_Home_p5cwm0.jpg" class="absolute inset-0 h-full w-full object-cover">
-            </a>
-            <a href="Cooler.html" class="gsap-reveal cat-card group relative overflow-hidden bg-yellow-400 rounded-xl p-3 h-44 md:h-80 block">
-                <h3 class="text-white text-xs md:text-2xl font-bold relative z-10">Cooler</h3>
-                <span class="absolute bottom-3 left-3 z-10 text-white font-bold text-[10px] md:text-base">View More →</span>
-                <img src="https://res.cloudinary.com/dwknktuzo/image/upload/v1772192629/Summercool___Creative_ads___Household_Coolers___Coffee_and_Creative_rigqdz.jpg" class="absolute inset-0 h-full w-full object-cover">
-            </a>
-           <a href="Tv.html" class="gsap-reveal cat-card group relative overflow-hidden bg-yellow-400 rounded-xl p-3 h-44 md:h-80 block">
-                <h3 class="text-white text-xs md:text-2xl font-bold relative z-10">Smart Tv</h3>
-                <span class="absolute bottom-3 left-3 z-10 text-white font-bold text-[10px] md:text-base">View More →</span>
-                <img src="https://res.cloudinary.com/dwknktuzo/image/upload/v1772192413/The_FPD_Smart_TV_is_more_than_a_screen_it_s_a_seamless_part_of_your_living_space__With_a_minimalist_design_a_svbd1o.jpg" class="absolute inset-0 h-full w-full object-cover">
-            </a>
+<!-- ════ FEATURED PRODUCTS — Horizontal Scroll Strip ════ -->
+<section id="products" class="scroll-mt-20 w-full px-3 sm:px-6 py-10 sm:py-16">
+    <div class="max-w-7xl mx-auto">
+        <div class="flex items-center justify-between mb-6 gap-4 flex-wrap">
+            <div>
+                <span class="text-red-600 font-semibold tracking-widest uppercase text-xs sm:text-sm block mb-1">Hand-Picked Deals</span>
+                <h2 class="section-heading font-bold text-gray-900 section-title">Featured Products</h2>
+            </div>
+            <div class="flex items-center gap-2">
+                <button id="prod-prev" class="scroll-arrow-btn" aria-label="Previous"><i data-lucide="chevron-left"  class="w-5 h-5"></i></button>
+                <button id="prod-next" class="scroll-arrow-btn" aria-label="Next">    <i data-lucide="chevron-right" class="w-5 h-5"></i></button>
+            </div>
         </div>
-    </section>
-    
-    <section id="offers" class="scroll-mt-24 container mx-auto px-6 py-12">
-       <div class="gsap-reveal bg-red-600 rounded-[2rem] p-8 md:p-16 flex flex-col md:flex-row items-center justify-between text-white shadow-2xl hanging-card">
-            <div class="md:w-2/3">
-                <span class="text-white/80 font-medium tracking-widest uppercase text-sm block">Exclusive Deals</span>
+
+        <div id="products-strip" class="products-strip gsap-reveal">
+
+            <div class="product-card">
+                <div class="relative overflow-hidden h-44 sm:h-48 bg-gray-100">
+                    <img src="https://res.cloudinary.com/dwknktuzo/image/upload/v1771929721/Total_cooling_confidence__pb8hwu.jpg" alt="LG Refrigerator" class="w-full h-full object-cover transition-transform duration-500 hover:scale-110">
+                    <span class="absolute top-3 left-3 bg-red-600 text-white text-[10px] font-bold px-2 py-1 rounded-full">SALE</span>
+                </div>
+                <div class="p-4">
+                    <p class="text-xs text-gray-400 font-medium uppercase tracking-wide mb-1">LG</p>
+                    <h3 class="text-sm font-bold text-gray-900 leading-snug mb-2">Double Door Refrigerator 260L</h3>
+                    <div class="flex items-center gap-2 mb-3"><span class="text-red-600 font-bold text-base">₹28,499</span><span class="text-gray-400 line-through text-xs">₹34,999</span><span class="text-green-600 text-xs font-semibold">18% off</span></div>
+                    <button class="add-to-cart w-full bg-gray-900 text-white py-2 rounded-xl text-xs font-bold hover:bg-red-600 transition flex items-center justify-center gap-2">
+                        <i data-lucide="shopping-cart" class="w-3.5 h-3.5"></i> Add to Cart
+                    </button>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <div class="relative overflow-hidden h-44 sm:h-48 bg-gray-100">
+                    <img src="https://res.cloudinary.com/dwknktuzo/image/upload/v1772005404/LG_Washing_Machine_smhow7.jpg" alt="Samsung Washer" class="w-full h-full object-cover transition-transform duration-500 hover:scale-110">
+                    <span class="absolute top-3 left-3 bg-green-500 text-white text-[10px] font-bold px-2 py-1 rounded-full">NEW</span>
+                </div>
+                <div class="p-4">
+                    <p class="text-xs text-gray-400 font-medium uppercase tracking-wide mb-1">Samsung</p>
+                    <h3 class="text-sm font-bold text-gray-900 leading-snug mb-2">Front Load Washing Machine 7kg</h3>
+                    <div class="flex items-center gap-2 mb-3"><span class="text-red-600 font-bold text-base">₹32,999</span><span class="text-gray-400 line-through text-xs">₹40,000</span><span class="text-green-600 text-xs font-semibold">17% off</span></div>
+                    <button class="add-to-cart w-full bg-gray-900 text-white py-2 rounded-xl text-xs font-bold hover:bg-red-600 transition flex items-center justify-center gap-2">
+                        <i data-lucide="shopping-cart" class="w-3.5 h-3.5"></i> Add to Cart
+                    </button>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <div class="relative overflow-hidden h-44 sm:h-48 bg-gray-100">
+                    <img src="https://res.cloudinary.com/dwknktuzo/image/upload/v1771929721/Cool_Comfort_at_No_Cost__How_to_Get_a_Free_Air_Conditioner_rwatde.jpg" alt="Daikin AC" class="w-full h-full object-cover transition-transform duration-500 hover:scale-110">
+                    <span class="absolute top-3 left-3 bg-red-600 text-white text-[10px] font-bold px-2 py-1 rounded-full">HOT</span>
+                </div>
+                <div class="p-4">
+                    <p class="text-xs text-gray-400 font-medium uppercase tracking-wide mb-1">Daikin</p>
+                    <h3 class="text-sm font-bold text-gray-900 leading-snug mb-2">1.5 Ton 5-Star Inverter AC</h3>
+                    <div class="flex items-center gap-2 mb-3"><span class="text-red-600 font-bold text-base">₹41,490</span><span class="text-gray-400 line-through text-xs">₹52,000</span><span class="text-green-600 text-xs font-semibold">20% off</span></div>
+                    <button class="add-to-cart w-full bg-gray-900 text-white py-2 rounded-xl text-xs font-bold hover:bg-red-600 transition flex items-center justify-center gap-2">
+                        <i data-lucide="shopping-cart" class="w-3.5 h-3.5"></i> Add to Cart
+                    </button>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <div class="relative overflow-hidden h-44 sm:h-48 bg-gray-100">
+                    <img src="https://res.cloudinary.com/dwknktuzo/image/upload/v1772192413/The_FPD_Smart_TV_is_more_than_a_screen_it_s_a_seamless_part_of_your_living_space__With_a_minimalist_design_a_svbd1o.jpg" alt="Sony TV" class="w-full h-full object-cover transition-transform duration-500 hover:scale-110">
+                    <span class="absolute top-3 left-3 bg-purple-600 text-white text-[10px] font-bold px-2 py-1 rounded-full">4K</span>
+                </div>
+                <div class="p-4">
+                    <p class="text-xs text-gray-400 font-medium uppercase tracking-wide mb-1">Sony</p>
+                    <h3 class="text-sm font-bold text-gray-900 leading-snug mb-2">55" 4K OLED Android Smart TV</h3>
+                    <div class="flex items-center gap-2 mb-3"><span class="text-red-600 font-bold text-base">₹79,990</span><span class="text-gray-400 line-through text-xs">₹99,000</span><span class="text-green-600 text-xs font-semibold">19% off</span></div>
+                    <button class="add-to-cart w-full bg-gray-900 text-white py-2 rounded-xl text-xs font-bold hover:bg-red-600 transition flex items-center justify-center gap-2">
+                        <i data-lucide="shopping-cart" class="w-3.5 h-3.5"></i> Add to Cart
+                    </button>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <div class="relative overflow-hidden h-44 sm:h-48 bg-gray-100">
+                    <img src="https://res.cloudinary.com/dwknktuzo/image/upload/v1772192565/Ovens_Hobs___Induction_Hob_Cooker_2KW_Touch_Control_Stove_Cooktop_with_10_Power_Child_Lock_Up-to-3H_Timer___Living_and_Home_p5cwm0.jpg" alt="Cooktop" class="w-full h-full object-cover transition-transform duration-500 hover:scale-110">
+                    <span class="absolute top-3 left-3 bg-orange-500 text-white text-[10px] font-bold px-2 py-1 rounded-full">POPULAR</span>
+                </div>
+                <div class="p-4">
+                    <p class="text-xs text-gray-400 font-medium uppercase tracking-wide mb-1">Prestige</p>
+                    <h3 class="text-sm font-bold text-gray-900 leading-snug mb-2">2KW Touch Control Induction Cooktop</h3>
+                    <div class="flex items-center gap-2 mb-3"><span class="text-red-600 font-bold text-base">₹3,299</span><span class="text-gray-400 line-through text-xs">₹4,500</span><span class="text-green-600 text-xs font-semibold">27% off</span></div>
+                    <button class="add-to-cart w-full bg-gray-900 text-white py-2 rounded-xl text-xs font-bold hover:bg-red-600 transition flex items-center justify-center gap-2">
+                        <i data-lucide="shopping-cart" class="w-3.5 h-3.5"></i> Add to Cart
+                    </button>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <div class="relative overflow-hidden h-44 sm:h-48 bg-gray-100">
+                    <img src="https://res.cloudinary.com/dwknktuzo/image/upload/v1772192629/Summercool___Creative_ads___Household_Coolers___Coffee_and_Creative_rigqdz.jpg" alt="Cooler" class="w-full h-full object-cover transition-transform duration-500 hover:scale-110">
+                    <span class="absolute top-3 left-3 bg-blue-500 text-white text-[10px] font-bold px-2 py-1 rounded-full">SUMMER</span>
+                </div>
+                <div class="p-4">
+                    <p class="text-xs text-gray-400 font-medium uppercase tracking-wide mb-1">Symphony</p>
+                    <h3 class="text-sm font-bold text-gray-900 leading-snug mb-2">Diet 22i Tower Cooler 22L</h3>
+                    <div class="flex items-center gap-2 mb-3"><span class="text-red-600 font-bold text-base">₹8,499</span><span class="text-gray-400 line-through text-xs">₹11,000</span><span class="text-green-600 text-xs font-semibold">23% off</span></div>
+                    <button class="add-to-cart w-full bg-gray-900 text-white py-2 rounded-xl text-xs font-bold hover:bg-red-600 transition flex items-center justify-center gap-2">
+                        <i data-lucide="shopping-cart" class="w-3.5 h-3.5"></i> Add to Cart
+                    </button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<!-- ════ CATEGORIES GRID ════ -->
+<section class="w-full px-3 sm:px-6 py-10 sm:py-16">
+    <div class="max-w-7xl mx-auto">
+        <div class="mb-6 sm:mb-8 text-center">
+            <h2 class="section-heading font-bold text-gray-900 section-title">Shop by Category</h2>
+        </div>
+        <div class="grid grid-cols-1 xs:grid-cols-2 sm:grid-cols-2 md:grid-cols-3 gap-3 sm:gap-4 md:gap-6">
+
+            <a href="refrigerator.html" class="gsap-reveal cat-card group relative overflow-hidden bg-blue-500 rounded-xl p-3 sm:p-4 h-44 sm:h-56 md:h-72 lg:h-80 block">
+                <h3 class="text-white font-bold relative z-10 text-sm sm:text-lg md:text-xl lg:text-2xl">Refrigerator</h3>
+                <span class="absolute bottom-3 left-3 z-10 text-white font-bold text-[11px] sm:text-sm md:text-base">View More →</span>
+                <img src="https://res.cloudinary.com/dwknktuzo/image/upload/v1771929721/Total_cooling_confidence__pb8hwu.jpg" alt="Refrigerator" class="absolute inset-0 h-full w-full object-cover opacity-80">
+            </a>
+            <a href="products.html" class="gsap-reveal cat-card group relative overflow-hidden bg-yellow-400 rounded-xl p-3 sm:p-4 h-44 sm:h-56 md:h-72 lg:h-80 block">
+                <h3 class="text-white font-bold relative z-10 text-sm sm:text-lg md:text-xl lg:text-2xl">Washers</h3>
+                <span class="absolute bottom-3 left-3 z-10 text-white font-bold text-[11px] sm:text-sm md:text-base">View More →</span>
+                <img src="https://res.cloudinary.com/dwknktuzo/image/upload/v1772005404/LG_Washing_Machine_smhow7.jpg" alt="Washing Machine" class="absolute inset-0 h-full w-full object-cover">
+            </a>
+            <a href="AC.html" class="gsap-reveal cat-card group relative overflow-hidden bg-red-500 rounded-xl p-3 sm:p-4 h-44 sm:h-56 md:h-72 lg:h-80 block">
+                <h3 class="text-white font-bold relative z-10 text-sm sm:text-lg md:text-xl lg:text-2xl">AC</h3>
+                <span class="absolute bottom-3 left-3 z-10 text-white font-bold text-[11px] sm:text-sm md:text-base">View More →</span>
+                <img src="https://res.cloudinary.com/dwknktuzo/image/upload/v1771929721/Cool_Comfort_at_No_Cost__How_to_Get_a_Free_Air_Conditioner_rwatde.jpg" alt="AC" class="absolute inset-0 h-full w-full object-cover">
+            </a>
+            <a href="Cooktop.html" class="gsap-reveal cat-card group relative overflow-hidden bg-yellow-400 rounded-xl p-3 sm:p-4 h-44 sm:h-56 md:h-72 lg:h-80 block">
+                <h3 class="text-white font-bold relative z-10 text-sm sm:text-lg md:text-xl lg:text-2xl">Cooktop</h3>
+                <span class="absolute bottom-3 left-3 z-10 text-white font-bold text-[11px] sm:text-sm md:text-base">View More →</span>
+                <img src="https://res.cloudinary.com/dwknktuzo/image/upload/v1772192565/Ovens_Hobs___Induction_Hob_Cooker_2KW_Touch_Control_Stove_Cooktop_with_10_Power_Child_Lock_Up-to-3H_Timer___Living_and_Home_p5cwm0.jpg" alt="Cooktop" class="absolute inset-0 h-full w-full object-cover">
+            </a>
+            <a href="Cooler.html" class="gsap-reveal cat-card group relative overflow-hidden bg-yellow-400 rounded-xl p-3 sm:p-4 h-44 sm:h-56 md:h-72 lg:h-80 block">
+                <h3 class="text-white font-bold relative z-10 text-sm sm:text-lg md:text-xl lg:text-2xl">Cooler</h3>
+                <span class="absolute bottom-3 left-3 z-10 text-white font-bold text-[11px] sm:text-sm md:text-base">View More →</span>
+                <img src="https://res.cloudinary.com/dwknktuzo/image/upload/v1772192629/Summercool___Creative_ads___Household_Coolers___Coffee_and_Creative_rigqdz.jpg" alt="Cooler" class="absolute inset-0 h-full w-full object-cover">
+            </a>
+            <a href="Tv.html" class="gsap-reveal cat-card group relative overflow-hidden bg-yellow-400 rounded-xl p-3 sm:p-4 h-44 sm:h-56 md:h-72 lg:h-80 block">
+                <h3 class="text-white font-bold relative z-10 text-sm sm:text-lg md:text-xl lg:text-2xl">Smart TV</h3>
+                <span class="absolute bottom-3 left-3 z-10 text-white font-bold text-[11px] sm:text-sm md:text-base">View More →</span>
+                <img src="https://res.cloudinary.com/dwknktuzo/image/upload/v1772192413/The_FPD_Smart_TV_is_more_than_a_screen_it_s_a_seamless_part_of_your_living_space__With_a_minimalist_design_a_svbd1o.jpg" alt="Smart TV" class="absolute inset-0 h-full w-full object-cover">
+            </a>
+
+        </div>
+    </div>
+</section>
+
+
+<!-- ════ OFFERS ════ -->
+<section id="offers" class="scroll-mt-20 w-full px-3 sm:px-6 py-8 sm:py-12">
+    <div class="max-w-7xl mx-auto">
+        <div class="gsap-reveal bg-red-600 rounded-[1.5rem] sm:rounded-[2rem] p-6 sm:p-8 md:p-12 lg:p-16 flex flex-col md:flex-row items-center justify-between text-white shadow-2xl hanging-card overflow-hidden">
+            <div class="w-full md:w-2/3 text-center md:text-left">
+                <span class="text-white/80 font-medium tracking-widest uppercase text-xs sm:text-sm block">Exclusive Deals</span>
                 <div class="typing-box">
-                    <h2 id="typing-heading" class="text-4xl md:text-7xl font-black uppercase premium-gradient leading-tight"></h2>
+                    <h2 id="typing-heading" class="offers-heading font-black uppercase premium-gradient leading-tight"></h2>
                     <span class="cursor"></span>
                 </div>
-                <p class="text-white/70 mt-4">15 Nov To 7 Dec - Don't miss out!</p>
+                <p class="text-white/70 mt-3 text-sm sm:text-base">15 Nov To 7 Dec - Don't miss out!</p>
+                <a href="https://wa.me/919876543210?text=I%20want%20to%20know%20about%20exclusive%20offers" target="_blank" rel="noopener"
+                   class="inline-flex items-center gap-2 mt-5 bg-white text-red-600 font-bold px-6 py-3 rounded-full text-sm hover:scale-105 transition-transform shadow-lg">
+                    <i class="fa-brands fa-whatsapp text-green-500 text-lg"></i> Get Offer on WhatsApp
+                </a>
             </div>
-            <img src="https://res.cloudinary.com/dwknktuzo/image/upload/v1771929721/download_1_xgve8t.jpg" 
-     class="w-64 md:w-96 rounded-2xl shadow-2xl mt-8 md:mt-0 hanging-effect" 
-     style="filter: drop-shadow(0 20px 40px rgba(0,0,0,0.3));">
+            <div class="w-full md:w-auto flex justify-center mt-6 md:mt-0">
+                <img src="https://res.cloudinary.com/dwknktuzo/image/upload/v1771929721/download_1_xgve8t.jpg"
+                     alt="Offers" class="w-44 sm:w-56 md:w-72 lg:w-96 max-w-full h-auto rounded-2xl shadow-2xl hanging-effect"
+                     style="filter:drop-shadow(0 20px 40px rgba(0,0,0,0.3))">
+            </div>
         </div>
-    </section>
+    </div>
+</section>
 
-     <section id="contact"  class="container mx-auto px-6 py-12">
-        <!-- main container uses same classes as #home: container mx-auto px-6 py-12 -->
-        <div class="bg-gray-100 rounded-3xl overflow-hidden flex flex-col lg:flex-row items-center p-8 md:p-16 fade-in lg:gap-16">
-            <!-- left column: form and heading (similar to left text block) -->
-            <div class="lg:w-3/5 w-full space-y-6">
-                <!-- badge -->
-                <span class="text-red-600 font-semibold tracking-widest uppercase text-sm flex items-center gap-1">
+
+<!-- ════ CONTACT ════ -->
+<section id="contact" class="scroll-mt-20 w-full px-3 sm:px-6 py-8 sm:py-12">
+    <div class="max-w-7xl mx-auto">
+        <div class="bg-gray-100 rounded-2xl sm:rounded-3xl overflow-hidden flex flex-col lg:flex-row items-start p-5 sm:p-8 md:p-12 lg:p-16 fade-in gap-8 lg:gap-16">
+
+            <div class="lg:w-3/5 w-full space-y-5 sm:space-y-6">
+                <span class="text-red-600 font-semibold tracking-widest uppercase text-xs sm:text-sm flex items-center gap-1 flex-wrap">
                     <i class="fa-regular fa-pen-to-square"></i> 📬 Get In Touch
                 </span>
-                <!-- main heading (similar to "Smart Home Appliances") -->
-                <h2 class="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 leading-tight">Let's <span class="text-red-600">Connect</span></h2>
-                <!-- subheading / helps with line, styled like <p> under hero -->
-                <p class="text-gray-500 text-lg flex items-center gap-2 flex-wrap">
-                    <i class="fa-regular fa-circle-check text-green-500"></i> 
-                    Helps With: Sales, Service, Repairs & Support
+                <h2 class="contact-heading font-bold text-gray-900 leading-tight">Let's <span class="text-red-600">Connect</span></h2>
+                <p class="text-gray-500 text-sm sm:text-lg flex items-center gap-2 flex-wrap">
+                    <i class="fa-regular fa-circle-check text-green-500"></i> Helps With: Sales, Service, Repairs &amp; Support
                 </p>
 
-                <!-- CONTACT FORM (compact, but using similar spacing as hero text) -->
-                  <form id="contactForm" class="space-y-5 pt-4">
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        <!-- name -->
+                <form id="contactForm" class="space-y-4 sm:space-y-5 pt-2 sm:pt-4">
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                         <div>
-                            <label class="block text-sm font-medium text-gray-700 mb-1"><i class="fa-regular fa-user mr-1 text-red-500"></i> Full Name *</label>
-                            <input type="text" placeholder="e.g. Priya Sharma" required
-                                class="w-full px-4 py-3 rounded-xl bg-white border border-gray-200 text-gray-800 placeholder-gray-400 focus:border-red-400 focus:ring-2 focus:ring-red-300 outline-none transition">
+                            <label class="block text-xs sm:text-sm font-medium text-gray-700 mb-1"><i class="fa-regular fa-user mr-1 text-red-500"></i> Full Name *</label>
+                            <input type="text" placeholder="e.g. Priya Sharma" required class="w-full px-4 py-3 rounded-xl bg-white border border-gray-200 text-gray-800 placeholder-gray-400 focus:border-red-400 focus:ring-2 focus:ring-red-300 outline-none transition text-sm">
                         </div>
-                        <!-- phone -->
                         <div>
-                            <label class="block text-sm font-medium text-gray-700 mb-1"><i class="fa-solid fa-phone mr-1 text-red-500"></i> Phone *</label>
-                            <input type="tel" placeholder="+91 98765 43210" required
-                                class="w-full px-4 py-3 rounded-xl bg-white border border-gray-200 text-gray-800 placeholder-gray-400 focus:border-red-400 focus:ring-2 focus:ring-red-300 outline-none transition">
+                            <label class="block text-xs sm:text-sm font-medium text-gray-700 mb-1"><i class="fa-solid fa-phone mr-1 text-red-500"></i> Phone *</label>
+                            <input type="tel" placeholder="+91 98765 43210" required class="w-full px-4 py-3 rounded-xl bg-white border border-gray-200 text-gray-800 placeholder-gray-400 focus:border-red-400 focus:ring-2 focus:ring-red-300 outline-none transition text-sm">
                         </div>
                     </div>
-
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        <!-- address -->
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                         <div>
-                            <label class="block text-sm font-medium text-gray-700 mb-1"><i class="fa-solid fa-location-dot mr-1 text-red-500"></i> Address</label>
-                            <input type="text" placeholder="Street, city, pin code"
-                                class="w-full px-4 py-3 rounded-xl bg-white border border-gray-200 text-gray-800 placeholder-gray-400 focus:border-red-400 focus:ring-2 focus:ring-red-300 outline-none transition">
+                            <label class="block text-xs sm:text-sm font-medium text-gray-700 mb-1"><i class="fa-solid fa-location-dot mr-1 text-red-500"></i> Address</label>
+                            <input type="text" placeholder="Street, city, pin code" class="w-full px-4 py-3 rounded-xl bg-white border border-gray-200 text-gray-800 placeholder-gray-400 focus:border-red-400 focus:ring-2 focus:ring-red-300 outline-none transition text-sm">
                         </div>
-                        <!-- email -->
                         <div>
-                            <label class="block text-sm font-medium text-gray-700 mb-1"><i class="fa-regular fa-envelope mr-1 text-red-500"></i> Email *</label>
-                            <input type="email" placeholder="name@example.com" required
-                                class="w-full px-4 py-3 rounded-xl bg-white border border-gray-200 text-gray-800 placeholder-gray-400 focus:border-red-400 focus:ring-2 focus:ring-red-300 outline-none transition">
+                            <label class="block text-xs sm:text-sm font-medium text-gray-700 mb-1"><i class="fa-regular fa-envelope mr-1 text-red-500"></i> Email *</label>
+                            <input type="email" placeholder="name@example.com" required class="w-full px-4 py-3 rounded-xl bg-white border border-gray-200 text-gray-800 placeholder-gray-400 focus:border-red-400 focus:ring-2 focus:ring-red-300 outline-none transition text-sm">
                         </div>
                     </div>
-
-                    <!-- helper text + submit button in ONE ROW (desktop) / stacked on mobile -->
                     <div class="helper-button-row pt-2">
-                        <p class="text-sm text-gray-400 flex items-center gap-1"><i class="fa-regular fa-lightbulb text-yellow-500"></i> We reply within 2h</p>
-                        <button type="submit" 
-                                class="fixed-submit-btn bg-red-600 text-white px-8 py-3 rounded-full font-semibold shadow-md hover:scale-105 transition-transform inline-flex items-center justify-center gap-2 text-sm sm:text-base">
-                            <i class="fa-regular fa-paper-plane"></i> 
-                            <span>Send Message</span>
+                        <p class="text-xs sm:text-sm text-gray-400 flex items-center gap-1"><i class="fa-regular fa-lightbulb text-yellow-500"></i> We reply within 2h</p>
+                        <button type="submit" class="fixed-submit-btn bg-red-600 text-white px-6 sm:px-8 py-3 rounded-full font-semibold shadow-md hover:scale-105 transition-transform inline-flex items-center justify-center gap-2 text-sm sm:text-base">
+                            <i class="fa-regular fa-paper-plane"></i> <span>Send Message</span>
                         </button>
                     </div>
                 </form>
-                <!-- feedback area (hidden by default) -->
                 <div id="formFeedback" class="text-sm text-green-700 bg-green-50 p-3 rounded-lg hidden transition-all"></div>
             </div>
 
-            <!-- right column: address card, social icons, etc. (styled like the hero image area) -->
-            <div class="lg:w-2/5 w-full mt-12 lg:mt-0 flex flex-col justify-center space-y-6">
-                <!-- store address card - using white card with shadow similar to floating image but more subtle -->
-                <div class="bg-white rounded-2xl shadow-lg p-6 flex items-start gap-4 border border-gray-100">
-                    <div class="bg-red-50 text-red-500 p-3 rounded-full flex-shrink-0">
-                        <i class="fa-solid fa-store text-xl"></i>
-                    </div>
+            <div class="lg:w-2/5 w-full flex flex-col justify-center space-y-5 sm:space-y-6">
+                <div class="bg-white rounded-2xl shadow-lg p-5 sm:p-6 flex items-start gap-4 border border-gray-100">
+                    <div class="bg-red-50 text-red-500 p-3 rounded-full flex-shrink-0 contact-icon"><i class="fa-solid fa-store text-lg sm:text-xl"></i></div>
                     <div>
-                        <h3 class="font-bold text-gray-900 text-lg">JALSA Electronics</h3>
-                        <p class="text-gray-500 mt-1 leading-relaxed">
-                            123 Jalsa Market, Andheri East,<br> Mumbai 400069, India
-                        </p>
-                        <p class="text-xs text-gray-400 mt-2 flex items-center gap-1">
-                            <i class="fa-regular fa-clock"></i> Open Mon–Sat 10am–8pm
-                        </p>
+                        <h3 class="font-bold text-gray-900 text-base sm:text-lg">JALSA Electronics</h3>
+                        <p class="text-gray-500 mt-1 leading-relaxed text-sm">123 Jalsa Market, Andheri East,<br> Mumbai 400069, India</p>
+                        <p class="text-xs text-gray-400 mt-2 flex items-center gap-1"><i class="fa-regular fa-clock"></i> Open Mon–Sat 10am–8pm</p>
                     </div>
                 </div>
-
-                <!-- social icons + extra helps, with white cards -->
-                <div class="bg-white rounded-2xl shadow-lg p-6 border border-gray-100">
-                    <h4 class="text-sm font-semibold text-gray-700 uppercase tracking-wider mb-4">connect with us</h4>
+                <div class="bg-white rounded-2xl shadow-lg p-5 sm:p-6 border border-gray-100">
+                    <h4 class="text-xs sm:text-sm font-semibold text-gray-700 uppercase tracking-wider mb-4">connect with us</h4>
                     <div class="flex items-center justify-around md:justify-start md:gap-8 gap-6">
-                        <!-- instagram -->
-                        <a href="#" class="social-icon flex flex-col items-center text-gray-500 hover:text-pink-500 transition">
-                            <i class="fa-brands fa-instagram text-4xl"></i>
-                            <span class="text-xs mt-1 font-medium">Instagram</span>
-                        </a>
-                        <!-- facebook -->
-                        <a href="#" class="social-icon flex flex-col items-center text-gray-500 hover:text-blue-600 transition">
-                            <i class="fa-brands fa-facebook text-4xl"></i>
-                            <span class="text-xs mt-1 font-medium">Facebook</span>
-                        </a>
-                        <!-- whatsapp -->
-                        <a href="#" class="social-icon flex flex-col items-center text-gray-500 hover:text-green-500 transition">
-                            <i class="fa-brands fa-whatsapp text-4xl"></i>
-                            <span class="text-xs mt-1 font-medium">WhatsApp</span>
-                        </a>
+                        <a href="#" class="social-icon flex flex-col items-center text-gray-500 hover:text-pink-500 transition"><i class="fa-brands fa-instagram text-3xl sm:text-4xl"></i><span class="text-xs mt-1 font-medium">Instagram</span></a>
+                        <a href="#" class="social-icon flex flex-col items-center text-gray-500 hover:text-blue-600 transition"><i class="fa-brands fa-facebook text-3xl sm:text-4xl"></i><span class="text-xs mt-1 font-medium">Facebook</span></a>
+                        <a href="https://wa.me/919876543210" target="_blank" rel="noopener" class="social-icon flex flex-col items-center text-gray-500 hover:text-green-500 transition"><i class="fa-brands fa-whatsapp text-3xl sm:text-4xl"></i><span class="text-xs mt-1 font-medium">WhatsApp</span></a>
                     </div>
                 </div>
-                <!-- extra contact helps row as white card -->
-                <div class="bg-white rounded-2xl shadow-lg p-5 flex flex-wrap items-center gap-4 text-sm border border-gray-100">
-                    <i class="fa-solid fa-headset text-red-500 text-xl"></i>
-                    <span class="text-gray-600"><span class="font-semibold uppercase">helps with</span><br>Rajesh Kumar · +91 98765 43210 · care@jalsaelectronics.com</span>
+                <div class="bg-white rounded-2xl shadow-lg p-4 sm:p-5 flex flex-wrap items-center gap-3 sm:gap-4 text-sm border border-gray-100">
+                    <i class="fa-solid fa-headset text-red-500 text-lg sm:text-xl flex-shrink-0"></i>
+                    <span class="text-gray-600 text-xs sm:text-sm">
+                        <span class="font-semibold uppercase">Helps with</span><br>
+                        Rajesh Kumar · +91 98765 43210 · <a href="mailto:support@jalsa.in" class="hover:text-red-600 transition">support@jalsa.in</a>
+                    </span>
                 </div>
             </div>
+
         </div>
-    </section>
+    </div>
+</section>
 
-
-
-    <footer class="bg-gray-900 text-white pt-20 pb-10">
-        <div class="container mx-auto px-6 text-center border-t border-gray-800 pt-8">
-            &copy; 2026 Jalsa Refrigerator & Electronics. All rights reserved.
+<!-- ════ FOOTER ════ -->
+<footer class="bg-gray-900 text-white pt-12 sm:pt-16 pb-8 sm:pb-10">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6">
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 sm:gap-10 pb-10 border-b border-gray-800">
+            <div class="col-span-1 sm:col-span-2 lg:col-span-1">
+                <h3 class="text-xl font-black mb-3">JALSA <span class="text-red-500">Electronics</span></h3>
+                <p class="text-gray-400 text-sm leading-relaxed">Mumbai's most trusted electronics store. Premium appliances, unbeatable prices, expert service.</p>
+                <div class="flex items-center gap-4 mt-4">
+                    <a href="#" class="text-gray-400 hover:text-pink-500 transition text-xl"><i class="fa-brands fa-instagram"></i></a>
+                    <a href="#" class="text-gray-400 hover:text-blue-500 transition text-xl"><i class="fa-brands fa-facebook"></i></a>
+                    <a href="https://wa.me/919876543210" target="_blank" rel="noopener" class="text-gray-400 hover:text-green-500 transition text-xl"><i class="fa-brands fa-whatsapp"></i></a>
+                </div>
+            </div>
+            <div>
+                <h4 class="text-sm font-semibold uppercase tracking-wider text-gray-300 mb-4">Quick Links</h4>
+                <ul class="space-y-2 text-sm text-gray-400">
+                    <li><a href="#home"     class="hover:text-red-400 transition">Home</a></li>
+                    <li><a href="products.html" class="hover:text-red-400 transition">Shop All</a></li>
+                    <li><a href="#offers"   class="hover:text-red-400 transition">Offers</a></li>
+                    <li><a href="#reviews"  class="hover:text-red-400 transition">Reviews</a></li>
+                    <li><a href="#contact"  class="hover:text-red-400 transition">Contact</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="text-sm font-semibold uppercase tracking-wider text-gray-300 mb-4">Categories</h4>
+                <ul class="space-y-2 text-sm text-gray-400">
+                    <li><a href="refrigerator.html"    class="hover:text-red-400 transition">Refrigerators</a></li>
+                    <li><a href="Washing Machine.html" class="hover:text-red-400 transition">Washing Machines</a></li>
+                    <li><a href="AC.html"              class="hover:text-red-400 transition">Air Conditioners</a></li>
+                    <li><a href="Tv.html"              class="hover:text-red-400 transition">Smart TVs</a></li>
+                    <li><a href="Cooler.html"          class="hover:text-red-400 transition">Coolers</a></li>
+                    <li><a href="Cooktop.html"         class="hover:text-red-400 transition">Cooktops</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="text-sm font-semibold uppercase tracking-wider text-gray-300 mb-4">Store Info</h4>
+                <ul class="space-y-2 text-sm text-gray-400">
+                    <li class="flex items-start gap-2"><i class="fa-solid fa-location-dot text-red-400 mt-0.5 flex-shrink-0"></i> 123 Jalsa Market, Andheri East, Mumbai 400069</li>
+                    <li class="flex items-center gap-2"><i class="fa-solid fa-phone text-red-400 flex-shrink-0"></i> +91 98765 43210</li>
+                    <li class="flex items-center gap-2"><i class="fa-regular fa-envelope text-red-400 flex-shrink-0"></i> support@jalsa.in</li>
+                    <li class="flex items-center gap-2"><i class="fa-regular fa-clock text-red-400 flex-shrink-0"></i> Mon–Sat 10am–8pm</li>
+                </ul>
+            </div>
         </div>
-    </footer>
+        <div class="pt-6 sm:pt-8 text-center">
+            <p class="text-xs sm:text-sm text-gray-500">&copy; 2026 Jalsa Refrigerator &amp; Electronics. All rights reserved.</p>
+        </div>
+    </div>
+</footer>
 
-    <script>
+<script>
+// ── DARK MODE ──
+const html = document.documentElement;
+const darkBtn = document.getElementById('dark-toggle');
+const saved = localStorage.getItem('jalsa-theme') || 'light';
+html.setAttribute('data-theme', saved);
+darkBtn.addEventListener('click', () => {
+    const next = html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+    html.setAttribute('data-theme', next);
+    localStorage.setItem('jalsa-theme', next);
+});
 
-        document.querySelectorAll('a[href^="#"]').forEach(link => {
+// ── SMOOTH SCROLL ──
+document.querySelectorAll('a[href^="#"]').forEach(link => {
     link.addEventListener('click', function(e) {
-        // 1. Default refresh action ko roko
         e.preventDefault();
-
-        const targetId = this.getAttribute('href');
-        
-        // 2. Agar click "Home" ya "Logo" par hai
-        if (targetId === '#' || targetId === '#home') {
-            window.scrollTo({
-                top: 0,
-                behavior: 'smooth'
-            });
-        } 
-        // 3. Agar click baaki sections (Shop, Offers, Contact) par hai
-        else {
-            const targetElement = document.querySelector(targetId);
-            if (targetElement) {
-                targetElement.scrollIntoView({
-                    behavior: 'smooth',
-                    block: 'start'
-                });
-            }
-        }
+        const id = this.getAttribute('href');
+        if (id === '#' || id === '#home') { window.scrollTo({ top:0, behavior:'smooth' }); }
+        else { const el = document.querySelector(id); if (el) el.scrollIntoView({ behavior:'smooth', block:'start' }); }
+        const mMenu = document.getElementById('mobile-menu');
+        const mBtn  = document.getElementById('menu-btn');
+        if (mMenu && !mMenu.classList.contains('hidden')) { mMenu.classList.add('hidden'); mBtn && mBtn.classList.remove('open'); }
     });
-});        // ─────────────────────────────────────────────
-        // 1. LENIS — ultra-smooth, premium scroll
-        // ─────────────────────────────────────────────
-        const lenis = new Lenis({
-            duration: 1.1,
-            easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-            smooth: true,
-            direction: 'vertical',
-            gestureDirection: 'vertical',
-            smoothTouch: false,
-            touchMultiplier: 2,
-        });
+});
 
-        lenis.on('scroll', ScrollTrigger.update);
+// ── LENIS ──
+const lenis = new Lenis({ duration:1.1, easing:(t)=>Math.min(1,1.001-Math.pow(2,-10*t)), smooth:true, direction:'vertical', gestureDirection:'vertical', smoothTouch:false, touchMultiplier:2 });
+lenis.on('scroll', ScrollTrigger.update);
+gsap.ticker.add((time)=>{ lenis.raf(time*1000); });
+gsap.ticker.lagSmoothing(0);
 
-        gsap.ticker.add((time) => {
-            lenis.raf(time * 1000);
-        });
-        gsap.ticker.lagSmoothing(0);
-        // ─────────────────────────────────────────────
-        // 2. GSAP SCROLL REVEAL — blur morphs, element never disappears
-        // ─────────────────────────────────────────────
-        gsap.registerPlugin(ScrollTrigger);
+// ── GSAP SCROLL REVEAL ──
+gsap.registerPlugin(ScrollTrigger);
+gsap.utils.toArray('.gsap-reveal').forEach((el) => {
+    gsap.fromTo(el,
+        { opacity:0.15, y:50, scale:0.88, filter:"blur(14px)" },
+        { opacity:1, y:0, scale:1, filter:"blur(0px)", duration:1.05, ease:"power3.out",
+          scrollTrigger:{ trigger:el, start:"top 88%", end:"bottom 8%", toggleActions:"play none none reverse" } }
+    );
+});
 
-        gsap.utils.toArray('.gsap-reveal').forEach((el) => {
-            gsap.fromTo(el,
-                {
-                    opacity: 0.15,
-                    y: 50,
-                    scale: 0.88,
-                    filter: "blur(14px)"
-                },
-                {
-                    opacity: 1,
-                    y: 0,
-                    scale: 1,
-                    filter: "blur(0px)",
-                    duration: 1.05,
-                    ease: "power3.out",
-                    scrollTrigger: {
-                        trigger: el,
-                        start: "top 88%",
-                        end: "bottom 8%",
-                        toggleActions: "play none none reverse",
-                    }
-                }
-            );
-        });
+// ── NAVBAR SCROLL EFFECT ──
+const nav = document.querySelector('nav');
+window.addEventListener('scroll', ()=>{ nav.classList.toggle('scrolled', window.scrollY > 60); }, { passive:true });
 
-        // ─────────────────────────────────────────────
-        // 3. NAVBAR — blur + shadow on scroll
-        // ─────────────────────────────────────────────
-        const nav = document.querySelector('nav');
-        ScrollTrigger.create({
-            start: "top -80",
-            onUpdate: (self) => {
-                if (self.scroller.scrollY > 60) {
-                    nav.classList.add('scrolled');
-                } else {
-                    nav.classList.remove('scrolled');
-                }
-            }
-        });
-        window.addEventListener('scroll', () => {
-            if (window.scrollY > 60) nav.classList.add('scrolled');
-            else nav.classList.remove('scrolled');
-        }, { passive: true });
+// ── SVG MORPH BG ──
+const morphPath = document.querySelector('#morph-path');
+const shape2 = "M0,1000 C300,800 700,1200 1000,1000 C1000,600 1000,400 1000,0 C700,200 300,-200 0,0 C0,400 0,600 0,1000 Z";
+gsap.to(morphPath, { scrollTrigger:{ trigger:"body", start:"top top", end:"bottom bottom", scrub:1.2 }, attr:{ d:shape2 }, ease:"none" });
 
-        // ─────────────────────────────────────────────
-        // 4. SVG MORPHING BACKGROUND on scroll
-        // ─────────────────────────────────────────────
-        const morphPath = document.querySelector('#morph-path');
-        const shape1 = "M0,1000 C0,1000 0,0 0,0 C0,0 1000,0 1000,0 C1000,0 1000,1000 1000,1000 Z";
-        const shape2 = "M0,1000 C300,800 700,1200 1000,1000 C1000,600 1000,400 1000,0 C700,200 300,-200 0,0 C0,400 0,600 0,1000 Z";
+// ── PARALLAX ──
+gsap.to('#home .floating', { scrollTrigger:{ trigger:'#home', start:'top top', end:'bottom top', scrub:1.5 }, y:-40, ease:'none' });
+gsap.to('#offers img',     { scrollTrigger:{ trigger:'#offers', start:'top bottom', end:'bottom top', scrub:1.5 }, y:-20, ease:'none' });
 
-        gsap.to(morphPath, {
-            scrollTrigger: {
-                trigger: "body",
-                start: "top top",
-                end: "bottom bottom",
-                scrub: 1.2
-            },
-            attr: { d: shape2 },
-            ease: "none"
-        });
+// ── TYPING EFFECT ──
+const TypingEffect = {
+    message:"Offers Coming Soon...", target:document.getElementById("typing-heading"), index:0,
+    play() {
+        if (!this.target) return;
+        if (this.index < this.message.length) { this.target.textContent += this.message.charAt(this.index++); setTimeout(()=>this.play(), 120); }
+        else { setTimeout(()=>{ this.target.textContent=""; this.index=0; this.play(); }, 3000); }
+    }
+};
+TypingEffect.play();
 
-        // ─────────────────────────────────────────────
-        // 5. HERO — subtle parallax on scroll
-        // ─────────────────────────────────────────────
-        gsap.to('#home .floating', {
-            scrollTrigger: {
-                trigger: '#home',
-                start: 'top top',
-                end: 'bottom top',
-                scrub: 1.5
-            },
-            y: -40,
-            ease: 'none'
-        });
+// ── RESIZE REFRESH ──
+window.addEventListener('resize', ()=>{ ScrollTrigger.refresh(); }, { passive:true });
 
-        // ─────────────────────────────────────────────
-        // 6. OFFERS image — gentle parallax
-        // ─────────────────────────────────────────────
-        gsap.to('#offers img', {
-            scrollTrigger: {
-                trigger: '#offers',
-                start: 'top bottom',
-                end: 'bottom top',
-                scrub: 1.5
-            },
-            y: -20,
-            ease: 'none'
-        });
-
-        // ─────────────────────────────────────────────
-        // 7. TYPING EFFECT
-        // ─────────────────────────────────────────────
-        const TypingEffect = {
-            message: "Offers Coming Soon...",
-            target: document.getElementById("typing-heading"),
-            index: 0,
-            play() {
-                if (this.index < this.message.length) {
-                    this.target.textContent += this.message.charAt(this.index);
-                    this.index++;
-                    setTimeout(() => this.play(), 120);
-                } else {
-                    setTimeout(() => {
-                        this.target.textContent = "";
-                        this.index = 0;
-                        this.play();
-                    }, 3000);
-                }
-            }
-        };
-
-        document.addEventListener('DOMContentLoaded', () => {
-            TypingEffect.play();
-        });
-
-        // ScrollTrigger refresh only on resize (not load)
-        window.addEventListener('resize', () => {
-            ScrollTrigger.refresh();
-        }, { passive: true });
-
-  // Check if elements exist and then apply logic
+// ── INIT (icons, menu, titles, form) ──
 (() => {
     lucide.createIcons();
-    
-    const mBtn = document.getElementById('menu-btn');
-    const mMenu = document.getElementById('mobile-menu');
 
+    const mBtn  = document.getElementById('menu-btn');
+    const mMenu = document.getElementById('mobile-menu');
     if (mBtn && mMenu) {
-        mBtn.onclick = () => mMenu.classList.toggle('hidden');
-        
-        // Links par click karte hi menu hide ho jaye
-        mMenu.querySelectorAll('a').forEach(link => {
-            link.onclick = () => mMenu.classList.add('hidden');
+        mBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            const isOpen = !mMenu.classList.contains('hidden');
+            mMenu.classList.toggle('hidden');
+            mBtn.classList.toggle('open', !isOpen);
+        });
+        document.addEventListener('click', (e) => {
+            if (!mBtn.contains(e.target) && !mMenu.contains(e.target)) { mMenu.classList.add('hidden'); mBtn.classList.remove('open'); }
         });
     }
+
+    const observer = new IntersectionObserver((entries)=>{ entries.forEach(e=>{ if(e.isIntersecting) e.target.classList.add('in-view'); }); }, { threshold:0.3 });
+    document.querySelectorAll('.section-title').forEach(el=>observer.observe(el));
+
+    const form = document.getElementById('contactForm');
+    const fb   = document.getElementById('formFeedback');
+    if (form && fb) {
+        form.addEventListener('submit', (e)=>{ e.preventDefault(); fb.textContent="✅ Message sent! We'll reply within 2 hours."; fb.classList.remove('hidden'); form.reset(); setTimeout(()=>fb.classList.add('hidden'), 5000); });
+    }
 })();
-    </script>
+
+// ── PRODUCT STRIP ARROWS ──
+(() => {
+    const strip = document.getElementById('products-strip');
+    if (!strip) return;
+    document.getElementById('prod-prev').addEventListener('click', ()=>strip.scrollBy({ left:-270, behavior:'smooth' }));
+    document.getElementById('prod-next').addEventListener('click', ()=>strip.scrollBy({ left: 270, behavior:'smooth' }));
+})();
+
+// ── REVIEWS STRIP ARROWS ──
+(() => {
+    const strip = document.getElementById('reviews-strip');
+    if (!strip) return;
+    document.getElementById('rev-prev').addEventListener('click', ()=>strip.scrollBy({ left:-320, behavior:'smooth' }));
+    document.getElementById('rev-next').addEventListener('click', ()=>strip.scrollBy({ left: 320, behavior:'smooth' }));
+})();
+
+// ── ADD TO CART ──
+(() => {
+    let count = 0;
+    const badge = document.querySelector('.cart-badge');
+    document.querySelectorAll('.add-to-cart').forEach(btn => {
+        btn.addEventListener('click', () => {
+            count++;
+            if (badge) badge.textContent = count;
+            const orig = btn.innerHTML;
+            btn.innerHTML = '✓ Added!';
+            btn.classList.replace('bg-gray-900','bg-green-600');
+            setTimeout(()=>{ btn.innerHTML=orig; btn.classList.replace('bg-green-600','bg-gray-900'); lucide.createIcons(); }, 1500);
+        });
+    });
+})();
+</script>
 </body>
 </html>
